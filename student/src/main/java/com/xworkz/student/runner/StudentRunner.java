@@ -38,12 +38,12 @@ public class StudentRunner {
 			teacherDto.setId(1);
 			teacherDto.setName("nandan");
 			teacherDto.setAge(47);
-			teacherDto.setSubject("maths");
+			teacherDto.setSub("maths");
 
 			teacherDto.setId(1);
 			teacherDto.setName("ravi");
 			teacherDto.setAge(47);
-			teacherDto.setSubject("maths");
+			teacherDto.setSub("maths");
 
 			em.merge(teacherDto);
 			et.commit();
