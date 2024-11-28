@@ -10,7 +10,7 @@ import javax.persistence.Persistence;
 
 import com.xworkz.college.dto.CollegeDto;
 
-public class CollegeOperations {
+public class CollegeUpdate {
 
 	public static void main(String[] args) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.xworkz");
@@ -32,20 +32,6 @@ public class CollegeOperations {
 			else
 				System.err.println("error");
 
-			System.out.println("=================================");
-
-			List<CollegeDto> list = em.createQuery("select a from CollegeDto a", CollegeDto.class).getResultList();
-
-			for (CollegeDto collegeDto2 : list) {
-				System.out.println(collegeDto2);
-
-			}
-			
-			System.out.println("=================================");
-		List<CollegeDto> list2=	em.createQuery("select u.name,u.email from CollegeDto u where u.age>=23", CollegeDto.class).getResultList();
-		for (CollegeDto collegeDto2 : list2) {
-			System.out.println(collegeDto2.getName());
-		}
 			
 			et.commit();
 

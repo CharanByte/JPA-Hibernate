@@ -39,4 +39,10 @@ public class CollegeDto {
 		this.phoneNo = phoneNo;
 	}
 
+	public CollegeDto(String name, String phoneNo) {
+		super();
+		this.name = name;
+		this.phoneNo = phoneNo;
+	}
+
 }
