@@ -23,6 +23,9 @@ import lombok.ToString;
 
 @NamedQuery(name="findAll" ,query = "select a from CourseEntity a")
 @NamedQuery(name="findAllById",query="select a from CourseEntity a where a.id=:setId")
+@NamedQuery(name="findNameById",query = "select a.name from CourseEntity a where a.id=:setid")
+@NamedQuery(name="findAgeByname",query = "select a.age from CourseEntity a where a.name=:findNameById")
+@NamedQuery(name="findHeightByweight", query = "select a.height from CourseEntity a where a.weight=:setWeight")
 public class CourseEntity {
 	@Id
 	private	int id;

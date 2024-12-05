@@ -1,28 +1,22 @@
 package com.xworkz.course.runner;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
-import com.xworkz.course.entity.CourseEntity;
-
-public class CourseRunner {
-
+public class CourseRunner3 {
 	public static void main(String[] args) {
 
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.xworkz");
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction et = em.getTransaction();
 
-		Query query1 = em.createNamedQuery("findAll");
-		List<CourseEntity> courseEntitie = query1.getResultList();
-		for (CourseEntity courseEntity1 : courseEntitie) {
-			System.out.println(courseEntity1);
-		}
+		Query query2 = em.createNamedQuery("findNameById").setParameter("setid", 2);
+		Object object = query2.getSingleResult();
+		String string = (String) object;
+		System.out.println(string);
 
 		try {
 			et.begin();
@@ -34,7 +28,6 @@ public class CourseRunner {
 			em.close();
 			emf.close();
 		}
-
 	}
 
 }

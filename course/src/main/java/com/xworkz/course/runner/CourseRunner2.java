@@ -10,7 +10,7 @@ import javax.persistence.Query;
 
 import com.xworkz.course.entity.CourseEntity;
 
-public class CourseRunner {
+public class CourseRunner2 {
 
 	public static void main(String[] args) {
 
@@ -18,12 +18,13 @@ public class CourseRunner {
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction et = em.getTransaction();
 
-		Query query1 = em.createNamedQuery("findAll");
-		List<CourseEntity> courseEntitie = query1.getResultList();
-		for (CourseEntity courseEntity1 : courseEntitie) {
-			System.out.println(courseEntity1);
+		Query query = em.createNamedQuery("findAllById");
+		query.setParameter("setId", 2);
+		List<CourseEntity> courseEntities = query.getResultList();
+		for (CourseEntity courseEntity : courseEntities) {
+			System.out.println(courseEntity);
 		}
-
+		
 		try {
 			et.begin();
 			et.commit();

@@ -1,16 +1,12 @@
 package com.xworkz.course.runner;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
-import com.xworkz.course.entity.CourseEntity;
-
-public class CourseRunner {
+public class CourseRunner4 {
 
 	public static void main(String[] args) {
 
@@ -18,12 +14,11 @@ public class CourseRunner {
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction et = em.getTransaction();
 
-		Query query1 = em.createNamedQuery("findAll");
-		List<CourseEntity> courseEntitie = query1.getResultList();
-		for (CourseEntity courseEntity1 : courseEntitie) {
-			System.out.println(courseEntity1);
-		}
-
+		Query query3 = em.createNamedQuery("findAgeByname").setParameter("findNameById", "charan");
+		Object object1 = query3.getSingleResult();
+		Integer string1 = (Integer) object1;
+		System.out.println(string1);
+		
 		try {
 			et.begin();
 			et.commit();
