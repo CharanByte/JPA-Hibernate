@@ -29,18 +29,16 @@ public class CollegeRead {
 
 			System.out.println("=================================");
 			List<CollegeDto> list2 = em
-					.createQuery("SELECT new CollegeDto(u.name , u.phoneNo) FROM CollegeDto u WHERE u.age > 15",
-							CollegeDto.class)
-					.getResultList();
+					.createQuery("select a from CollegeDto a where a.age>15").getResultList();
 			for (CollegeDto collegeDto2 : list2) {
-				System.out.println("name = " + collegeDto2.getName() + " phoneNo = " + collegeDto2.getPhoneNo());
+				System.out.println(collegeDto2.getName() +" "+collegeDto2.getEmail());
 			}
-
+			
 			System.out.println("=================================");
 			List<String> list3 = em
 					.createQuery(
 							"select u.email from CollegeDto u where u.name like : setname OR u.name like :setname1 ")
-					.setParameter("setname", "s%").setParameter("setname1", "%n").getResultList();
+					.setParameter("setname", "s%").setParameter("setname1", "n%").getResultList();
 			for (String string : list3) {
 				System.out.println(string);
 			}
