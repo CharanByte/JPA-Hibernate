@@ -24,7 +24,9 @@ import lombok.ToString;
 @NoArgsConstructor
 
 @NamedQuery(name = "updateName", query = "update ScholarshipEntity up set up.name= :setname where up.email= :setEmail and up.phone_no= :setNo")
+
 @NamedQuery(name="updateAge",query = "update ScholarshipEntity up set up.age=:setAge where up.phone_no= :setNo and up.isEligible=:setisEligible")
+@NamedQuery(name="getAll",query = "select a from ScholarshipEntity a")
 public class ScholarshipEntity {
 
 	@Id
