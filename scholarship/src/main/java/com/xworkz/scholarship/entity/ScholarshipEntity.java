@@ -24,9 +24,14 @@ import lombok.ToString;
 @NoArgsConstructor
 
 @NamedQuery(name = "updateName", query = "update ScholarshipEntity up set up.name= :setname where up.email= :setEmail and up.phone_no= :setNo")
-
 @NamedQuery(name="updateAge",query = "update ScholarshipEntity up set up.age=:setAge where up.phone_no= :setNo and up.isEligible=:setisEligible")
 @NamedQuery(name="getAll",query = "select a from ScholarshipEntity a")
+@NamedQuery(name = "getNameAndEmailById" ,query = "select s.name,s.email from ScholarshipEntity s where s.id=:setId")
+@NamedQuery(name="getCountByAge" ,query = "select count(a) from ScholarshipEntity a where a.age>=:setAge")
+@NamedQuery(name = "getNameEmailPhoneNoById" ,query = "select a.name,a.email,a.phone_no from ScholarshipEntity a where a.id=:setId ")
+@NamedQuery(name = "getAllByEmailAndNumber" ,query = "select a from ScholarshipEntity a where a.email=:setemail and a.phone_no=:setNo")
+@NamedQuery(name="deleteByNameAndAge" ,query = "delete from ScholarshipEntity a where a.name=:setname and a.age=:setAge")
+
 public class ScholarshipEntity {
 
 	@Id

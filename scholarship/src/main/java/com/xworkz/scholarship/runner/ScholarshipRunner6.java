@@ -12,6 +12,9 @@ public class ScholarshipRunner6 {
 		try {
 			et.begin();
 			
+		Object object=	em.createNamedQuery("getCountByAge").setParameter("setAge",15).getSingleResult();
+		System.out.println(object);
+			
 			et.commit();
 
 		} catch (Exception e) {

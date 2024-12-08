@@ -7,31 +7,32 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
-public class ScholarshipRunner5 {
+import com.xworkz.scholarship.entity.ScholarshipEntity;
+
+public class ScholarshipRunner8 {
 
 	public static void main(String[] args) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.xworkz");
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction et = em.getTransaction();
-		
+
 		try {
 			et.begin();
-			
-			List<Object[]> list=em.createNamedQuery("getNameAndEmailById").setParameter("setId",6).getResultList();
-			for (Object[] objects : list) {
-				System.out.println("name : "+objects[0]+"  email : "+objects[1]);
+
+			List<ScholarshipEntity> list = em.createNamedQuery("getAllByEmailAndNumber")
+					.setParameter("setemail", "charan@gmail.com").setParameter("setNo", 9741591749L).getResultList();
+			for (ScholarshipEntity scholarshipEntity : list) {
+				System.out.println(scholarshipEntity);
 			}
-			
 			et.commit();
 
 		} catch (Exception e) {
-			if(et.isActive())
+			if (et.isActive())
 				et.rollback();
 		} finally {
 			em.close();
 			emf.close();
 		}
-
 
 	}
 
