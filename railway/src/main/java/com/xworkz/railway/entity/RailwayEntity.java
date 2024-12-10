@@ -16,8 +16,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-
-
 @Entity
 @Table(name = "scholarship_table")
 @NoArgsConstructor
@@ -32,7 +30,7 @@ import lombok.ToString;
 
 @NamedQuery(name = "getDobByphno", query = "select pd.dob from RailwayEntity pd where pd.phone_no = :phno")
 
-//@NamedQuery(name = "getAddress&Name", query = "select pd.address from PatientDetails pd where pd.id= :id and pd.name= :setname")
+@NamedQuery(name = "getAddress&Name", query = "select pd.address from RailwayEntity pd where pd.id=:setid and pd.name=:setname")
 
 public class RailwayEntity {
 
@@ -57,6 +55,5 @@ public class RailwayEntity {
 	private int year;
 	@Column(name = "isEligible")
 	private boolean isEligible;
-
 
 }

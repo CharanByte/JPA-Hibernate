@@ -66,8 +66,8 @@ public class RailwayRepositoryImp implements RailwayRepository {
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction et = em.getTransaction();
 
-		Object object= em.createNamedQuery("getDobByphno").setParameter("phno", no).getSingleResult();
-		Date date=(Date)object;
+		Object object = em.createNamedQuery("getDobByphno").setParameter("phno", no).getSingleResult();
+		Date date = (Date) object;
 		try {
 			et.begin();
 
@@ -81,6 +81,30 @@ public class RailwayRepositoryImp implements RailwayRepository {
 			emf.close();
 		}
 		return date;
+	}
+
+	@Override
+	public String getAddressandName(int id, String name) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.xworkz");
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction et = em.getTransaction();
+
+		Object object = em.createNamedQuery("getAddress&Name").setParameter("setid", id).setParameter("setname", name)
+				.getSingleResult();
+		String address = (String) object;
+		try {
+			et.begin();
+
+			et.commit();
+
+		} catch (Exception e) {
+			if (et.isActive())
+				et.rollback();
+		} finally {
+			em.close();
+			emf.close();
+		}
+		return address;
 	}
 
 }

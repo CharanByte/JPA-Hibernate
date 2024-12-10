@@ -19,8 +19,11 @@ public class RailwayRunner {
 			System.out.println(string);
 		}
 
-		Date dob=imp.getDobByphno(9741591749L);
+		Date dob = imp.getDobByphno(9741591749L);
 		System.out.println(dob);
+
+		String address = imp.getAddressAndName(1, "charan jv");
+		System.out.println(address);
 	}
 
 }
