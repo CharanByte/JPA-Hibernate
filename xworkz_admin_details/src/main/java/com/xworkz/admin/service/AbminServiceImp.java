@@ -33,15 +33,17 @@ public class AbminServiceImp  implements AdminSrevice{
         else{
             isvalid=false;
             System.out.println("age is invalid");
+            return isvalid;
         }
         String email=adminDTO.getEmail();
-        if(email.contains("@") && email.contains("gamil.com")){
+        if(email.contains("@")){
             isvalid=true;
             System.out.println("email is valid");
         }
         else{
             isvalid=false;
             System.out.println("email is invalid");
+            return isvalid;
         }
 
         String password=adminDTO.getPassword();
@@ -55,6 +57,7 @@ public class AbminServiceImp  implements AdminSrevice{
         else{
             isvalid=false;
             System.out.println("confpassword is in valid");
+            return  isvalid;
         }
 
         String phNo=adminDTO.getPhNo();
@@ -65,6 +68,7 @@ public class AbminServiceImp  implements AdminSrevice{
         else {
             isvalid=false;
             System.out.println("phone is in valid");
+            return  isvalid;
         }
 
 if(isvalid) {
