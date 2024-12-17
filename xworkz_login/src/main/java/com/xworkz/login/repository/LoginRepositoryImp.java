@@ -12,13 +12,13 @@ import java.util.Collections;
 import java.util.List;
 
 @Repository
-public class LoginRepositoryImp implements LoginRepository{
+public class LoginRepositoryImp implements LoginRepository {
     @Override
     public boolean save(LoginEntity loginEntity) {
 
-       EntityManagerFactory emf= Persistence.createEntityManagerFactory("com.xworkz");
-       EntityManager em =emf.createEntityManager();
-      EntityTransaction et=em.getTransaction();
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.xworkz");
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction et = em.getTransaction();
 
         try {
             et.begin();
@@ -38,15 +38,15 @@ public class LoginRepositoryImp implements LoginRepository{
 
     @Override
     public String getPassword(SigninDTO signinDTO) {
-        String string=null;
-        EntityManagerFactory emf= Persistence.createEntityManagerFactory("com.xworkz");
-        EntityManager em =emf.createEntityManager();
-        EntityTransaction et=em.getTransaction();
+        String string = null;
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.xworkz");
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction et = em.getTransaction();
 
         try {
             et.begin();
-           Object object=em.createNamedQuery("getPasswordName").setParameter("setName",signinDTO.getName()).getSingleResult();
-             string=(String)object;
+            Object object = em.createNamedQuery("getPasswordName").setParameter("setName", signinDTO.getName()).getSingleResult();
+            string = (String) object;
             et.commit();
 
         } catch (Exception e) {
@@ -63,13 +63,13 @@ public class LoginRepositoryImp implements LoginRepository{
     public List<LoginEntity> getAll(String name) {
 
         List<LoginEntity> loginEntities = Collections.emptyList();
-        EntityManagerFactory emf= Persistence.createEntityManagerFactory("com.xworkz");
-        EntityManager em =emf.createEntityManager();
-        EntityTransaction et=em.getTransaction();
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.xworkz");
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction et = em.getTransaction();
 
         try {
             et.begin();
-          loginEntities= em.createNamedQuery("getAll").setParameter("setName",name).getResultList();
+            loginEntities = em.createNamedQuery("getAll").setParameter("setName", name).getResultList();
             System.out.println(loginEntities);
             et.commit();
 

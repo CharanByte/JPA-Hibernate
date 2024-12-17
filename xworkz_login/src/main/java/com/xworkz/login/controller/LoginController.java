@@ -19,39 +19,39 @@ public class LoginController {
 
     @Autowired
     private LoginService loginService;
-    LoginController(){
+
+    LoginController() {
         System.out.println("running LoginController");
     }
 
     @PostMapping("/signup")
-    public String signUp(LoginDTO loginDTO){
+    public String signUp(LoginDTO loginDTO) {
         System.out.println(loginDTO);
-    boolean validte=loginService.valid(loginDTO);
-       if(validte)
-           return "Signin.jsp";
-       else
-        return "Signup.jsp";
+        boolean validte = loginService.valid(loginDTO);
+        if (validte)
+            return "Signin.jsp";
+        else
+            return "Signup.jsp";
     }
 
     @PostMapping("/signin")
-    public String signin(SigninDTO signinDTO, Model model){
+    public String signin(SigninDTO signinDTO, Model model) {
         System.out.println(signinDTO);
-       boolean present= loginService.validPassword(signinDTO);
-       if(present){
-           model.addAttribute("username",signinDTO.getName());
-           return "Success.jsp";
-            }
-       else
-           return "Signin.jsp";
+        boolean present = loginService.validPassword(signinDTO);
+        if (present) {
+            model.addAttribute("username", signinDTO.getName());
+            return "Success.jsp";
+        } else
+            return "Signin.jsp";
     }
 
     @GetMapping("/getdetails")
-    public String getDetails(String name ,Model model){
+    public String getDetails(String name, Model model) {
         System.out.println(name);
-   List<LoginEntity> loginEntities = loginService.getAll(name);
+        List<LoginEntity> loginEntities = loginService.getAll(name);
         System.out.println(loginEntities);
-        model.addAttribute("printAll",loginEntities);
-      return "Success.jsp";
+        model.addAttribute("printAll", loginEntities);
+        return "Success.jsp";
 
     }
 

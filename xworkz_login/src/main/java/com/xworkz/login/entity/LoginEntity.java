@@ -8,10 +8,10 @@ import javax.persistence.*;
 @Data
 @RequiredArgsConstructor
 @Entity
-@Table(name="login_tb")
+@Table(name = "login_tb")
 
-@NamedQuery(name = "getPasswordName",query = "select a.password from LoginEntity a where a.name=:setName")
-@NamedQuery(name = "getAll",query = "select a from LoginEntity a where a.name=:setName")
+@NamedQuery(name = "getPasswordName", query = "select a.password from LoginEntity a where a.name=:setName")
+@NamedQuery(name = "getAll", query = "select a from LoginEntity a where a.name=:setName")
 
 public class LoginEntity {
 
@@ -22,5 +22,6 @@ public class LoginEntity {
     private int age;
     private String email;
     private String password;
-    private  String phNo;
+    private String phNo;
+
 }

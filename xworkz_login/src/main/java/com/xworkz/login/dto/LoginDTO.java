@@ -13,5 +13,5 @@ public class LoginDTO {
     private String email;
     private String password;
     private String conPassword;
-    private  String phNo;
+    private String phNo;
 }
