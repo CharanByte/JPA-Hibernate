@@ -2,10 +2,10 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.xworkz</groupId>
-  <artifactId>xworkz_commonModule_charan</artifactId>
+  <artifactId>xworkz_module</artifactId>
   <packaging>war</packaging>
   <version>1.0-SNAPSHOT</version>
-  <name>xworkz_commonModule_charan Maven Webapp</name>
+  <name>xworkz_module Maven Webapp</name>
   <url>http://maven.apache.org</url>
   <dependencies>
     <dependency>
@@ -14,6 +14,7 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/org.springframework/spring-orm -->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-orm</artifactId>
@@ -83,28 +84,8 @@
       <artifactId>spring-security-crypto</artifactId>
       <version>5.8.5</version>
     </dependency>
-    <!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-classic -->
-    <dependency>
-      <groupId>ch.qos.logback</groupId>
-      <artifactId>logback-classic</artifactId>
-      <version>1.2.3</version>
-      <scope>test</scope>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/org.slf4j/jul-to-slf4j -->
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>jul-to-slf4j</artifactId>
-      <version>1.7.25</version>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/org.slf4j/log4j-over-slf4j -->
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>log4j-over-slf4j</artifactId>
-      <version>1.7.25</version>
-    </dependency>
-
   </dependencies>
   <build>
-    <finalName>xworkz_commonModule_charan</finalName>
+    <finalName>xworkz_module</finalName>
   </build>
 </project>
