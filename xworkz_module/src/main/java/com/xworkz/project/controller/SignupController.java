@@ -21,6 +21,9 @@ public class SignupController {
     public String signup(SignupDTO signupDTO){
         System.out.println(signupDTO);
         boolean valid=signupService.valid(signupDTO);
+        if(valid){
+            return "Success.jsp";
+        }
         return "Signup.jsp";
     }
 }

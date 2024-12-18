@@ -12,6 +12,7 @@ import javax.persistence.*;
 @Table(name="signUp_table")
 public class SignupEntity {
 
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column(name = "user_name")

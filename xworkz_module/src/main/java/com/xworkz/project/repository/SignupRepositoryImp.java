@@ -22,7 +22,6 @@ public class SignupRepositoryImp implements SignupRepository{
         try {
             et.begin();
             em.persist(signupEntity);
-
             et.commit();
 
         } catch (Exception e) {

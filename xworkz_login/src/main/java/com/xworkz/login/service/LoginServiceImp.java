@@ -81,7 +81,7 @@ public class LoginServiceImp implements LoginService {
         if (isvalid) {
 
             String rawPassword = loginDTO.getPassword();
-            //  String enncryPassword=bCryptPasswordEncoder.encode(loginDTO.getPassword());
+             String enncryPassword=bCryptPasswordEncoder.encode(loginDTO.getPassword());
             String encryptedpassword = BCrypt.hashpw(rawPassword, BCrypt.gensalt());
             LoginEntity entity = new LoginEntity();
             entity.setName(loginDTO.getName());
