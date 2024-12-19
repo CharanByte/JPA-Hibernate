@@ -20,7 +20,7 @@ public class SignupEntity {
     @Column(name = "user_email")
     private String email;
     @Column(name = "user_password")
-    private char[] password;
+    private String password;
     @Column(name = "user_phoneNo")
     private String phoneNo;
     @Column(name = "user_altEmail")

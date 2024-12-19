@@ -12,27 +12,26 @@ import java.util.Random;
 @Service
 public class SignupServiceImp implements SignupService {
 
-    public char[] passwordGenerate() {
+    public String passwordGenerate() {
         String Capital_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         String Small_chars = "abcdefghijklmnopqrstuvwxyz";
         String numbers = "0123456789";
 
 
-        String values = Capital_chars + Small_chars +
-                numbers;
-
+        String values = Capital_chars + Small_chars + numbers;
 
         Random rndm = new Random();
 
-        char[] password = new char[6];
+       StringBuilder password=new StringBuilder();
 
         for (int i = 0; i < 6; i++) {
 
-            password[i] = values.charAt(rndm.nextInt(values.length()));
+           password.append(values.charAt(rndm.nextInt(values.length())));
 
         }
-        return password;
+        return password.toString();
     }
+
 
     @Override
     public boolean valid(SignupDTO signupDTO) {
@@ -40,7 +39,7 @@ public class SignupServiceImp implements SignupService {
         if(signupDTO.getEmail()!=null) {
              SignupEntity signupEntity=new SignupEntity();
             System.out.println("length : "+signupDTO.getEmail().length());
-            char[] password = passwordGenerate();
+            String password = passwordGenerate();
             signupEntity.setName(signupDTO.getName());
             signupEntity.setEmail(signupDTO.getEmail());
             signupEntity.setPassword(password);

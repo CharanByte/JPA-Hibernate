@@ -38,7 +38,7 @@
                 <form action="signup" method="post">
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter name" onblur="validData(event)">
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter name" onblur="validData(event)" onChange="onField(event)">
                         <span id="nameValid"></span>
                     </div>
                     <div class="form-group">
@@ -118,6 +118,19 @@ const validData=(event)=>{
     else if(name==="altPhoneNo" && value.length!=10){
     console.log("altphoneNo invalid");
     document.getElementById("altPhonevalid").innerHTML="<span style='color:red'}> Phone Number invalid</span>"
+    }
+}
+
+const onField=(event)=>{
+    const{name,value}=event.target;
+    console.log("this is name");
+    console.log(value);
+
+    if(name==="name"){
+
+        var xhhtp=new XMLHttpRequest();
+        xhhtp.open("GET","http://localhost:8080/xworkz_module/name/"+value);
+        xhhtp.send();
     }
 }
 </script>
