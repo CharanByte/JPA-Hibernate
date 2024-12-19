@@ -1,3 +1,4 @@
+<%@ page isELIgnored = "false"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,11 +20,12 @@
                     <form action="signin" method="post">
                         <div class="form-group">
                             <label for="userName">User Name</label>
-                            <input type="text" class="form-control" id="userName" name="name" required>
+                            <input type="text" class="form-control" id="userName" name="name" required value="${dto.name}">
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>
                             <input type="password" class="form-control" id="password" name="password" required>
+                               <p style="color:red">${failure}</p>
                         </div>
                         <button type="submit" class="btn btn-primary btn-block">Login</button>
                     </form>

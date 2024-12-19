@@ -1,9 +1,9 @@
 package com.xworkz.project.service;
 
+import com.xworkz.project.dto.SigninDTO;
 import com.xworkz.project.dto.SignupDTO;
 import com.xworkz.project.entity.SignupEntity;
 import com.xworkz.project.repository.SignupRepository;
-import com.xworkz.project.repository.SignupRepositoryImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +11,9 @@ import java.util.Random;
 
 @Service
 public class SignupServiceImp implements SignupService {
+
+    @Autowired
+    SignupRepository signupRepository;
 
     public String passwordGenerate() {
         String Capital_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -22,11 +25,11 @@ public class SignupServiceImp implements SignupService {
 
         Random rndm = new Random();
 
-       StringBuilder password=new StringBuilder();
+        StringBuilder password = new StringBuilder();
 
         for (int i = 0; i < 6; i++) {
 
-           password.append(values.charAt(rndm.nextInt(values.length())));
+            password.append(values.charAt(rndm.nextInt(values.length())));
 
         }
         return password.toString();
@@ -35,10 +38,10 @@ public class SignupServiceImp implements SignupService {
 
     @Override
     public boolean valid(SignupDTO signupDTO) {
-        boolean valid=false;
-        if(signupDTO.getEmail()!=null) {
-             SignupEntity signupEntity=new SignupEntity();
-            System.out.println("length : "+signupDTO.getEmail().length());
+        boolean valid = false;
+        if (signupDTO.getEmail() != null) {
+            SignupEntity signupEntity = new SignupEntity();
+            System.out.println("length : " + signupDTO.getEmail().length());
             String password = passwordGenerate();
             signupEntity.setName(signupDTO.getName());
             signupEntity.setEmail(signupDTO.getEmail());
@@ -48,12 +51,26 @@ public class SignupServiceImp implements SignupService {
             signupEntity.setAltPhhoneNo(signupDTO.getAltPhhoneNo());
             signupEntity.setLocation(signupDTO.getLocation());
 
-            valid=true;
+            valid = true;
 
-            System.out.println( "generated password  : "+password);
-            SignupRepository signupRepository=new SignupRepositoryImp();
-            boolean saved=signupRepository.save(signupEntity);
+            System.out.println("generated password  : " + password);
+            boolean saved = signupRepository.save(signupEntity);
         }
         return valid;
+    }
+
+    @Override
+    public boolean getSigninDetails(SigninDTO signinDTO) {
+        boolean passwordMaches = true;
+        String password = signupRepository.getUserName(signinDTO.getName());
+        if (signinDTO.getPassword() != null) {
+            if (signinDTO.getPassword().equals(password))
+                System.out.println("password matching");
+            else {
+                System.out.println("password not matching");
+                passwordMaches = false;
+            }
+        }
+        return passwordMaches;
     }
 }

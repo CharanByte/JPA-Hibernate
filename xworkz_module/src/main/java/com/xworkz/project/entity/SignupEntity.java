@@ -10,6 +10,7 @@ import javax.persistence.*;
 @RequiredArgsConstructor
 @Entity
 @Table(name="signUp_table")
+@NamedQuery(name = "getPassword",query = "select a.password from SignupEntity a where a.name=:setName")
 public class SignupEntity {
 
     @Id

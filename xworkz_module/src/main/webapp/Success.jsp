@@ -1,3 +1,4 @@
+<%@ page isELIgnored = "false"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,7 +22,7 @@
 </head>
 <body>
 <div class="text-center">
-    <h1>User SignIn Successful</h1>
+    <h1>${success}</h1>
 </div>
 <!-- Bootstrap JS and dependencies (optional) -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
