@@ -5,6 +5,7 @@ import com.xworkz.project.dto.SignupDTO;
 import com.xworkz.project.entity.SignupEntity;
 import com.xworkz.project.repository.SignupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Random;
@@ -14,6 +15,8 @@ public class SignupServiceImp implements SignupService {
 
     @Autowired
     SignupRepository signupRepository;
+
+    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public String passwordGenerate() {
         String Capital_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -41,16 +44,19 @@ public class SignupServiceImp implements SignupService {
         boolean valid = false;
         if (signupDTO.getEmail() != null) {
             SignupEntity signupEntity = new SignupEntity();
-            System.out.println("length : " + signupDTO.getEmail().length());
             String password = passwordGenerate();
+
+            String encodedPassword=passwordEncoder.encode(password);
+            System.out.println("password : "+password );
+            System.out.println("encodedPassword : "+encodedPassword);
             signupEntity.setName(signupDTO.getName());
             signupEntity.setEmail(signupDTO.getEmail());
-            signupEntity.setPassword(password);
+            signupEntity.setPassword(encodedPassword);
             signupEntity.setPhoneNo(signupDTO.getPhoneNo());
             signupEntity.setAltEmail(signupDTO.getAltEmail());
             signupEntity.setAltPhhoneNo(signupDTO.getAltPhhoneNo());
             signupEntity.setLocation(signupDTO.getLocation());
-
+            signupEntity.setNo(-1);
             valid = true;
 
             System.out.println("generated password  : " + password);
@@ -72,5 +78,17 @@ public class SignupServiceImp implements SignupService {
             }
         }
         return passwordMaches;
+    }
+
+    @Override
+    public int checkUserName(SignupDTO signupDTO) {
+        int valid = signupRepository.checkUserName(signupDTO);
+        return valid;
+    }
+
+    @Override
+    public long getCountOfName(String name) {
+        long value = signupRepository.getCountOfName(name);
+        return value;
     }
 }

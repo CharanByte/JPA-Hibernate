@@ -10,4 +10,8 @@ public interface SignupService {
     boolean valid(SignupDTO signupDTO);
 
     boolean getSigninDetails(SigninDTO signinDTO);
+
+    int checkUserName(SignupDTO signupDTO);
+
+    long getCountOfName(String name);
 }

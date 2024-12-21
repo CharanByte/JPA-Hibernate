@@ -38,12 +38,12 @@
                 <form action="signup" method="post">
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter name" onblur="validData(event)" onChange="onField(event)">
-                        <span id="nameValid"></span>
+                        <input type="text" class="form-control" id="nameid" name="name" placeholder="Enter name" onchange="onField()">
+                        <span id="nameValid" style="color:red"></span>
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" onblur="validData(event)">
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" onblur="validData(event)" >
                         <span id="emailvalid"></span>
                     </div>
                     <div class="form-group">
@@ -53,7 +53,7 @@
                     </div>
                     <div class="form-group">
                         <label for="altEmail">Alternate Email</label>
-                        <input type="email" class="form-control" id="altEmail" name="altEmail" placeholder="Enter alternate email"  onblur="validData(event)">
+                        <input type="email" class="form-control" id="altEmail" name="altEmail" placeholder="Enter alternate email" onblur="validData(event)">
                         <span id="altEmailvalid"></span>
                     </div>
                     <div class="form-group">
@@ -121,17 +121,20 @@ const validData=(event)=>{
     }
 }
 
-const onField=(event)=>{
-    const{name,value}=event.target;
-    console.log("this is name");
-    console.log(value);
+const onField=()=>{
+var placeName=document.getElementById("nameid");
+   var placeValue=placeName.value;
+    console.log(placeName);
+    console.log(placeValue);
 
-    if(name==="name"){
+        var xhttp=new XMLHttpRequest();
+        xhttp.open("GET","http://localhost:8080/xworkz_module/placeName/" + placeValue,true);
+        xhttp.send();
 
-        var xhhtp=new XMLHttpRequest();
-        xhhtp.open("GET","http://localhost:8080/xworkz_module/name/"+value);
-        xhhtp.send();
-    }
+        xhttp.onload = function() {
+            document.getElementById("nameValid").innerHTML = this.responseText;
+        };
+
 }
 </script>
 

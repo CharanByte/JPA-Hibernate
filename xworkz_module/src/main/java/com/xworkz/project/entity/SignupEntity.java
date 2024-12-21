@@ -11,6 +11,8 @@ import javax.persistence.*;
 @Entity
 @Table(name="signUp_table")
 @NamedQuery(name = "getPassword",query = "select a.password from SignupEntity a where a.name=:setName")
+@NamedQuery(name = "getCount",query = "select count(a.name) from SignupEntity a where a.name=:setName")
+
 public class SignupEntity {
 
     @Id
@@ -30,4 +32,5 @@ public class SignupEntity {
     private String altPhhoneNo;
     @Column(name = "user_location")
     private String location;
+    private int no;
 }
