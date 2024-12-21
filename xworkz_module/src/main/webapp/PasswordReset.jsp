@@ -6,36 +6,43 @@
     <title>SignIn</title>
     <!-- Bootstrap CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-<style>
-.reset{
-margin-left:70%;
-
-}
-</style>
-
 </head>
 <body>
 
 <div class="container mt-5">
+
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="text-center">Sign In</h3>
+                    <h3 class="text-center">Create New Password</h3>
                 </div>
                 <div class="card-body">
-                    <form action="signin" method="post">
+                    <form action="passwordReset" method="post">
                         <div class="form-group">
                             <label for="userName">User Name</label>
                             <input type="text" class="form-control" id="userName" name="name" required value="${dto.name}">
                         </div>
+
+                          <div class="form-group">
+                             <label for="password">Old Password</label>
+                               <input type="password" class="form-control" id="newpassword" name="oldPassword" required>
+
+                          </div>
                         <div class="form-group">
-                            <label for="password">Password</label>
-                            <input type="password" class="form-control" id="password" name="password" required>
-                               <p style="color:red">${failure}</p>
+                            <label for="password">New Password</label>
+                            <input type="password" class="form-control" id="newpassword" name="newPassword" required>
+
                         </div>
-                        <button type="submit" class="btn btn-primary btn-block">Login</button>
-                        <a href="PasswordReset.jsp" class="reset">Reset Password?</a>
+                        <div class="form-group">
+                            <label for="conpassword">Confirm Password</label>
+                            <input type="password" class="form-control" id="conpassword" name="confirmPassword" required>
+
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Reset Password</button>
+                           <p style="color:green">${update}</p>
+                           <p style="color:red">${noupdate}</p>
+                           <p style="color:red">${updated}</p>
                     </form>
                 </div>
             </div>

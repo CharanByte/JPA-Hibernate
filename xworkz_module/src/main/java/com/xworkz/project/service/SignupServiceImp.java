@@ -1,5 +1,6 @@
 package com.xworkz.project.service;
 
+import com.xworkz.project.dto.PasswordResetDTO;
 import com.xworkz.project.dto.SigninDTO;
 import com.xworkz.project.dto.SignupDTO;
 import com.xworkz.project.entity.SignupEntity;
@@ -89,6 +90,29 @@ public class SignupServiceImp implements SignupService {
     @Override
     public long getCountOfName(String name) {
         long value = signupRepository.getCountOfName(name);
+        return value;
+    }
+
+    @Override
+    public boolean validateUserName(PasswordResetDTO passwordResetDTO) {
+        boolean isEqual=true;
+      String[] getUserName=  signupRepository.validateUserName(passwordResetDTO);
+        System.out.println("getUserName"+getUserName[0]);
+        if(passwordResetDTO.getName().equals(getUserName[0]) && passwordResetDTO.getOldPassword().equals(getUserName[1]) && getUserName[2].equals("-1")) {
+            System.out.println("equal");
+        }
+        else{
+            System.out.println("User name is incorrect");
+            isEqual=false;
+        }
+
+        return isEqual;
+    }
+
+    @Override
+    public int updatePassword(PasswordResetDTO passwordResetDTO) {
+        int value=signupRepository.updatePassword(passwordResetDTO);
+        System.out.println(value);
         return value;
     }
 }

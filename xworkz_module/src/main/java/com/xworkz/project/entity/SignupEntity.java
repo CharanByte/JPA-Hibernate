@@ -12,6 +12,11 @@ import javax.persistence.*;
 @Table(name="signUp_table")
 @NamedQuery(name = "getPassword",query = "select a.password from SignupEntity a where a.name=:setName")
 @NamedQuery(name = "getCount",query = "select count(a.name) from SignupEntity a where a.name=:setName")
+@NamedQuery(name = "getUserName",query = "select a.name from SignupEntity a where a.name=:setName")
+@NamedQuery(name = "getOldPassword",query = "select a.password from SignupEntity a where a.name=:setName")
+@NamedQuery(name = "getNo",query = "select a.no from SignupEntity a where a.name=:setName")
+@NamedQuery(name = "updatepassword", query = "UPDATE SignupEntity a SET a.password = :setPassword ,a.no=:setNo WHERE a.name = :setName")
+
 
 public class SignupEntity {
 

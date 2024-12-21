@@ -1,5 +1,6 @@
 package com.xworkz.project.repository;
 
+import com.xworkz.project.dto.PasswordResetDTO;
 import com.xworkz.project.dto.SigninDTO;
 import com.xworkz.project.dto.SignupDTO;
 import com.xworkz.project.entity.SignupEntity;
@@ -15,4 +16,8 @@ public interface SignupRepository {
     int checkUserName(SignupDTO signupDTO);
 
     long getCountOfName(String name);
+
+    String[] validateUserName(PasswordResetDTO passwordResetDTO);
+
+    int updatePassword(PasswordResetDTO passwordResetDTO);
 }
