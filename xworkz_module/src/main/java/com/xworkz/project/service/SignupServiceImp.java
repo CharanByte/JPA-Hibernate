@@ -111,8 +111,15 @@ public class SignupServiceImp implements SignupService {
 
     @Override
     public int updatePassword(PasswordResetDTO passwordResetDTO) {
-        int value=signupRepository.updatePassword(passwordResetDTO);
-        System.out.println(value);
+        int value=0;
+        if(passwordResetDTO.getNewPassword().equals(passwordResetDTO.getConfirmPassword())) {
+            System.out.println("newPassword and comfirmPassword is equal");
+            value = signupRepository.updatePassword(passwordResetDTO);
+            System.out.println(value);
+        }
+        else {
+            System.out.println("newPassword and comfirmPassword is notEqual");
+        }
         return value;
     }
 }

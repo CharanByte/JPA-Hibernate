@@ -26,18 +26,18 @@
 
                           <div class="form-group">
                              <label for="password">Old Password</label>
-                               <input type="password" class="form-control" id="newpassword" name="oldPassword" required>
+                               <input type="password" class="form-control" id="oldpassword" name="oldPassword" required>
 
                           </div>
                         <div class="form-group">
                             <label for="password">New Password</label>
-                            <input type="password" class="form-control" id="newpassword" name="newPassword" required>
+                            <input type="password" class="form-control" id="newpassword" name="newPassword" required onblur="getName(event)">
 
                         </div>
                         <div class="form-group">
                             <label for="conpassword">Confirm Password</label>
-                            <input type="password" class="form-control" id="conpassword" name="confirmPassword" required>
-
+                            <input type="password" class="form-control" id="conpassword" name="confirmPassword" required onblur="getName(event)">
+                             <span id="validConfPass" style="color:red"></span>
                         </div>
                         <button type="submit" class="btn btn-primary btn-block">Reset Password</button>
                            <p style="color:green">${update}</p>
@@ -49,7 +49,23 @@
         </div>
     </div>
 </div>
+<script>
+var getName=(event)=>{
+var {name,value}=event.target;
+console.log(name);
+console.log(value);
+if(name==="confirmPassword" && value===document.getElementById("newpassword").value){
+console.log("new password and confirm password matching");
+}
+else if(name==="confirmPassword" && value!==document.getElementById("newpassword").value){
+document.getElementById("validConfPass").innerHTML="<span style='color:red'>confirm password invalid</span>"
+console.log("new password and confirm password notMatching");
 
+}
+
+}
+
+</script>
 <!-- Bootstrap JS and dependencies -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
