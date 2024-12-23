@@ -1,7 +1,5 @@
 package com.xworkz.project.service;
 
-import com.xworkz.project.dto.PasswordResetDTO;
-import com.xworkz.project.dto.SigninDTO;
 import com.xworkz.project.dto.SignupDTO;
 import com.xworkz.project.entity.SignupEntity;
 import com.xworkz.project.repository.SignupRepository;
@@ -55,7 +53,7 @@ public class SignupServiceImp implements SignupService {
             signupEntity.setPassword(encodedPassword);
             signupEntity.setPhoneNo(signupDTO.getPhoneNo());
             signupEntity.setAltEmail(signupDTO.getAltEmail());
-            signupEntity.setAltPhhoneNo(signupDTO.getAltPhhoneNo());
+            signupEntity.setAltPhhoneNo(signupDTO.getAltPhoneNo());
             signupEntity.setLocation(signupDTO.getLocation());
             signupEntity.setNo(-1);
             valid = true;
@@ -67,11 +65,11 @@ public class SignupServiceImp implements SignupService {
     }
 
     @Override
-    public boolean getSigninDetails(SigninDTO signinDTO) {
+    public boolean validateSigninDetails(String name,String password) {
         boolean passwordMaches = true;
-        String password = signupRepository.getUserName(signinDTO.getName());
-        if (signinDTO.getPassword() != null) {
-            if (signinDTO.getPassword().equals(password))
+        String passwordFromDb = signupRepository.getUserName(name);
+        if (password != null) {
+            if (password.equals(passwordFromDb))
                 System.out.println("password matching");
             else {
                 System.out.println("password not matching");
@@ -94,11 +92,11 @@ public class SignupServiceImp implements SignupService {
     }
 
     @Override
-    public boolean validateUserName(PasswordResetDTO passwordResetDTO) {
+    public boolean validateUserName(String name,String oldPassword) {
         boolean isEqual=true;
-      String[] getUserName=  signupRepository.validateUserName(passwordResetDTO);
+      String[] getUserName=  signupRepository.validateUserName(name);
         System.out.println("getUserName"+getUserName[0]);
-        if(passwordResetDTO.getName().equals(getUserName[0]) && passwordResetDTO.getOldPassword().equals(getUserName[1]) && getUserName[2].equals("-1")) {
+        if(name.equals(getUserName[0]) && oldPassword.equals(getUserName[1]) && getUserName[2].equals("-1")) {
             System.out.println("equal");
         }
         else{
@@ -110,11 +108,11 @@ public class SignupServiceImp implements SignupService {
     }
 
     @Override
-    public int updatePassword(PasswordResetDTO passwordResetDTO) {
+    public int updatePassword(String name,String newPassword,String confirmPassword) {
         int value=0;
-        if(passwordResetDTO.getNewPassword().equals(passwordResetDTO.getConfirmPassword())) {
+        if(newPassword.equals(confirmPassword)) {
             System.out.println("newPassword and comfirmPassword is equal");
-            value = signupRepository.updatePassword(passwordResetDTO);
+            value = signupRepository.updatePassword(name,newPassword);
             System.out.println(value);
         }
         else {

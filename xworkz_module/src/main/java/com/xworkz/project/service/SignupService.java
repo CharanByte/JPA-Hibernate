@@ -1,7 +1,5 @@
 package com.xworkz.project.service;
 
-import com.xworkz.project.dto.PasswordResetDTO;
-import com.xworkz.project.dto.SigninDTO;
 import com.xworkz.project.dto.SignupDTO;
 import org.springframework.stereotype.Service;
 
@@ -10,13 +8,13 @@ public interface SignupService {
 
     boolean valid(SignupDTO signupDTO);
 
-    boolean getSigninDetails(SigninDTO signinDTO);
+    boolean validateSigninDetails(String name,String password);
 
     int checkUserName(SignupDTO signupDTO);
 
     long getCountOfName(String name);
 
-    boolean validateUserName(PasswordResetDTO passwordResetDTO);
+    boolean validateUserName(String name,String oldPassword);
 
-    int updatePassword(PasswordResetDTO passwordResetDTO);
+    int updatePassword(String name,String newPassword,String confirmPassword);
 }

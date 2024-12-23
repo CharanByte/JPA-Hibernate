@@ -10,8 +10,26 @@
     <style>
         body {
             background-color: #e9ecef;
-            padding: 20px;
+          
         }
+         .navbar {
+                    background-color: #343a40;
+                }
+                .navbar-brand {
+                    color: #ffffff !important;
+                }
+                .navbar-brand:hover {
+                    color: #007bff !important;
+                }
+                .main-section {
+                    text-align: center;
+                    padding: 100px 20px;
+                }
+                .main-section h1 {
+                    font-size: 3em;
+                    font-weight: bold;
+                    color: #343a40;
+                }
         .form-container {
             background-color: #fff;
             padding: 20px;
@@ -27,9 +45,32 @@
             width: 100%;
             margin-top: 20px;
      }
+      .header-spacing {
+                 margin-bottom: 30px;
+             }
     </style>
 </head>
 <body>
+<nav class="navbar navbar-expand-lg navbar-dark header-spacing">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            <img src="https://x-workz.in/static/media/Logo.cf195593dc1b3f921369.png" alt="Logo" class="logo" height="50">
+        </a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="index.jsp">Home</a>
+               </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="Signup.jsp">Sign up</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="Signin.jsp">Sign in</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6">
@@ -38,27 +79,27 @@
                 <form action="signup" method="post">
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="text" class="form-control" id="nameid" name="name" placeholder="Enter name" onchange="onField()">
+                        <input type="text" class="form-control" id="nameid" name="name" placeholder="Enter name" oninput="onField()">
                         <span id="nameValid" style="color:red"></span>
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" onblur="validData(event)" >
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" oninput="validData(event)" >
                         <span id="emailvalid"></span>
                     </div>
                     <div class="form-group">
                         <label for="phoneNo">Phone Number</label>
-                        <input type="text" class="form-control" id="phoneNo" name="phoneNo" placeholder="Enter phone number" onblur="validData(event)">
+                        <input type="text" class="form-control" id="phoneNo" name="phoneNo" placeholder="Enter phone number" oninput="validData(event)">
                         <span id="phonevalid"></span>
                     </div>
                     <div class="form-group">
                         <label for="altEmail">Alternate Email</label>
-                        <input type="email" class="form-control" id="altEmail" name="altEmail" placeholder="Enter alternate email" onblur="validData(event)">
+                        <input type="email" class="form-control" id="altEmail" name="altEmail" placeholder="Enter alternate email" oninput="validData(event)" onblur="altEmailSameOrNot()">
                         <span id="altEmailvalid"></span>
                     </div>
                     <div class="form-group">
                         <label for="altPhoneNo">Alternate Phone Number</label>
-                        <input type="text" class="form-control" id="altPhoneNo" name="altPhoneNo" placeholder="Enter alternate phone number" onblur="validData(event)">
+                        <input type="text" class="form-control" id="altPhoneNo" name="altPhoneNo" placeholder="Enter alternate phone number" oninput="validData(event)" onblur="altPhoneNoSameOrNot()">
                         <span id="altPhonevalid"></span>
                     </div>
                     <div class="form-group">
@@ -73,6 +114,21 @@
     </div>
 </div>
 <script>
+const onField=()=>{
+var placeName=document.getElementById("nameid");
+   var placeValue=placeName.value;
+
+      var xhttp=new XMLHttpRequest();
+        xhttp.open("GET","http://localhost:8081/xworkz_module/placeName/" + placeValue,true);
+        xhttp.send();
+
+        xhttp.onload = function() {
+            document.getElementById("nameValid").innerHTML = this.responseText;
+        };
+
+}
+
+
 const validData=(event)=>{
     const {name,value}=event.target;
     if(name==="name" && value.length>=2){
@@ -106,6 +162,7 @@ const validData=(event)=>{
         console.log("altvalid email");
         document.getElementById("altEmailvalid").innerHTML="<span}></span>"
     }
+
     else if(name==="altEmail" && !value.includes("@gmail.com")){
     console.log("altemail not valid");
     document.getElementById("altEmailvalid").innerHTML="<span style='color:red'}> Email invalid</span>"
@@ -121,20 +178,23 @@ const validData=(event)=>{
     }
 }
 
-const onField=()=>{
-var placeName=document.getElementById("nameid");
-   var placeValue=placeName.value;
-    console.log(placeName);
-    console.log(placeValue);
-
-        var xhttp=new XMLHttpRequest();
-        xhttp.open("GET","http://localhost:8080/xworkz_module/placeName/" + placeValue,true);
-        xhttp.send();
-
-        xhttp.onload = function() {
-            document.getElementById("nameValid").innerHTML = this.responseText;
-        };
-
+var altEmailSameOrNot=()=>{
+if(document.getElementById("altEmail").value===document.getElementById("email").value){
+          console.log("altEmail and email are same: ");
+        document.getElementById("altEmailvalid").innerHTML="<span style='color:red'}>alternate email and email are same</span>"
+}
+else if(document.getElementById("altEmail").value!==document.getElementById("email").value){
+          console.log("alt and email Notsame: ");
+}
+}
+var altPhoneNoSameOrNot=()=>{
+if(document.getElementById("altPhoneNo").value===document.getElementById("phoneNo").value){
+          console.log("altPhoneNo and phone are same");
+        document.getElementById("altPhonevalid").innerHTML="<span style='color:red'}>Alternate PhoneNo and PhoneNo are same</span>"
+}
+else if(document.getElementById("altPhoneNo").value!==document.getElementById("phoneNo").value){
+          console.log("altPhoneNo and phone are Notsame");
+}
 }
 </script>
 

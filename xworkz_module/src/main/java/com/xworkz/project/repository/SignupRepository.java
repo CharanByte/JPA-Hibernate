@@ -1,7 +1,5 @@
 package com.xworkz.project.repository;
 
-import com.xworkz.project.dto.PasswordResetDTO;
-import com.xworkz.project.dto.SigninDTO;
 import com.xworkz.project.dto.SignupDTO;
 import com.xworkz.project.entity.SignupEntity;
 import org.springframework.stereotype.Repository;
@@ -17,7 +15,7 @@ public interface SignupRepository {
 
     long getCountOfName(String name);
 
-    String[] validateUserName(PasswordResetDTO passwordResetDTO);
+    String[] validateUserName(String name);
 
-    int updatePassword(PasswordResetDTO passwordResetDTO);
+    int updatePassword(String name,String newPassword);
 }

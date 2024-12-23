@@ -1,6 +1,5 @@
 package com.xworkz.project.controller;
 
-import com.xworkz.project.dto.SigninDTO;
 import com.xworkz.project.service.SignupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,15 +18,15 @@ public class SigninController {
         System.out.println("SigninController");
     }
     @PostMapping("/signin")
-    public String signin(SigninDTO signinDTO, Model model){
-        System.out.println(signinDTO);
-        boolean matches=signupService.getSigninDetails(signinDTO);
+    public String getSignin(String name,String password, Model model){
+        System.out.println(name +" "+password);
+        boolean matches=signupService.validateSigninDetails(name,password);
         if(matches){
-            model.addAttribute("success" ,"Successfully SignIn as "+signinDTO.getName());
+            model.addAttribute("success" ,"Successfully SignIn as "+name);
             return "Success.jsp";
         }
         model.addAttribute("failure","incorrect password");
-        model.addAttribute("dto",signinDTO);
+        model.addAttribute("dto",name);
         return "Signin.jsp";
     }
 }

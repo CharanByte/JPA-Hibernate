@@ -73,6 +73,9 @@
         </a>
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav ml-auto">
+             <li class="nav-item">
+                                <a class="nav-link" href="index.jsp">Home</a>
+                            </li>
                 <li class="nav-item">
                     <a class="nav-link" href="Signup.jsp">Sign up</a>
                 </li>

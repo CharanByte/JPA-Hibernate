@@ -1,6 +1,5 @@
 package com.xworkz.project.controller;
 
-import com.xworkz.project.dto.PasswordResetDTO;
 import com.xworkz.project.service.SignupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,12 +15,12 @@ public class PasswordResetController {
     private SignupService signupService;
 
     @PostMapping("/passwordReset")
-    public String onReset(PasswordResetDTO passwordResetDTO, Model model) {
+    public String onReset(String name,String oldPassword,String newPassword,String confirmPassword, Model model) {
 
-        System.out.println(passwordResetDTO);
-        boolean valid = signupService.validateUserName(passwordResetDTO);
+        System.out.println(name+" "+oldPassword+" "+newPassword+" "+confirmPassword);
+        boolean valid = signupService.validateUserName(name,oldPassword);
         if (valid) {
-            int value = signupService.updatePassword(passwordResetDTO);
+            int value = signupService.updatePassword(name,newPassword,confirmPassword);
             System.out.println("value : " + value);
             if (value > 0) {
                 System.out.println("password updated");
