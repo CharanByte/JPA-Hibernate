@@ -7,6 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import java.util.Properties;
 import java.util.Random;
 
 @Service
@@ -16,6 +20,7 @@ public class SignupServiceImp implements SignupService {
     SignupRepository signupRepository;
 
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    String generatedPassword;
 
     public String passwordGenerate() {
         String Capital_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -43,14 +48,14 @@ public class SignupServiceImp implements SignupService {
         boolean valid = false;
         if (signupDTO.getEmail() != null) {
             SignupEntity signupEntity = new SignupEntity();
-            String password = passwordGenerate();
+            generatedPassword = passwordGenerate();
 
-            String encodedPassword = passwordEncoder.encode(password);
-            System.out.println("password : " + password);
-            System.out.println("encodedPassword : " + encodedPassword);
+            // String encodedPassword = passwordEncoder.encode(generatedPassword);
+            System.out.println("password : " + generatedPassword);
+            // System.out.println("encodedPassword : " + encodedPassword);
             signupEntity.setName(signupDTO.getName());
             signupEntity.setEmail(signupDTO.getEmail());
-            signupEntity.setPassword(encodedPassword);
+            signupEntity.setPassword(generatedPassword);
             signupEntity.setPhoneNo(signupDTO.getPhoneNo());
             signupEntity.setAltEmail(signupDTO.getAltEmail());
             signupEntity.setAltPhhoneNo(signupDTO.getAltPhoneNo());
@@ -58,7 +63,7 @@ public class SignupServiceImp implements SignupService {
             signupEntity.setNo(-1);
             valid = true;
 
-            System.out.println("generated password  : " + password);
+            System.out.println("generated password  : " + generatedPassword);
             boolean saved = signupRepository.save(signupEntity);
         }
         return valid;
@@ -144,13 +149,13 @@ public class SignupServiceImp implements SignupService {
                 signupRepository.updateCountBy1(name, 0);
                 return 1;
 
-            } else if (name.equals(signupEntity.getName()) && !password.equals(signupEntity.getPassword()) && signupEntity.getNo() >= 0 && signupEntity.getNo() <= 3) {
+            } else if (name.equals(signupEntity.getName()) && !password.equals(signupEntity.getPassword()) && signupEntity.getNo() >= 0 && signupEntity.getNo() < 3) {
                 System.out.println("incorect password count increase by 1 ");
                 int countValue = signupRepository.updateCountBy1(name, signupEntity.getNo() + 1);
                 return 2;
 
 
-            } else if (name.equals(signupEntity.getName()) && !password.equals(signupEntity.getPassword()) && signupEntity.getNo() >= 0 && signupEntity.getNo() > 3) {
+            } else if (name.equals(signupEntity.getName()) && !password.equals(signupEntity.getPassword()) && signupEntity.getNo() >= 0 && signupEntity.getNo() >= 3) {
                 System.out.println("locked");
                 return 3;
             }
@@ -160,4 +165,44 @@ public class SignupServiceImp implements SignupService {
 
         return 0;
     }
+
+    @Override
+    public boolean saveEmail(String email) {
+
+        final String username = "charan7812@gmail.com";
+        final String userPassword = "arut fpac cnld mnlh";
+
+        Properties prop = new Properties();
+        prop.put("mail.smtp.host", "smtp.gmail.com");
+        prop.put("mail.smtp.port", "587");
+        prop.put("mail.smtp.auth", "true");
+        prop.put("mail.smtp.starttls.enable", "true"); //TLS
+
+        Session session = Session.getInstance(prop,
+                new javax.mail.Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(username, userPassword);
+                    }
+                });
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(username));
+            message.setRecipients(
+                    Message.RecipientType.TO,
+                    InternetAddress.parse(email)
+            );
+            message.setSubject("Your password");
+            message.setText("your password : " + generatedPassword);
+
+            Transport.send(message);
+
+            System.out.println("Done");
+
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
 }
+
+

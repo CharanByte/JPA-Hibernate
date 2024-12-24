@@ -27,18 +27,12 @@ public class SignupController {
         System.out.println(signupDTO);
         boolean valid = signupService.valid(signupDTO);
         if (valid) {
+            boolean mailSent= signupService.saveEmail(signupDTO.getEmail());
             model.addAttribute("success","successfully signedup as "+signupDTO.getName());
             return "Success.jsp";
         }
         return "Signup.jsp";
     }
 
-//
-//    @PostMapping("/signup")
-//    public int checkUserName(SignupDTO signupDTO) {
-//        System.out.println(signupDTO);
-//        int valid = signupService.checkUserName(signupDTO);
-//        return valid;
-//    }
 }
 

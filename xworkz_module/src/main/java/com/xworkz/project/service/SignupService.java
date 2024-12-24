@@ -1,7 +1,6 @@
 package com.xworkz.project.service;
 
 import com.xworkz.project.dto.SignupDTO;
-import com.xworkz.project.entity.SignupEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,4 +23,6 @@ public interface SignupService {
     int getCountValue(String name, String password);
 
     int getAll(String name, String password);
+
+    boolean saveEmail(String email);
 }
