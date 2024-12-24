@@ -10,13 +10,15 @@ import javax.persistence.*;
 @RequiredArgsConstructor
 @Entity
 @Table(name="signUp_table")
-@NamedQuery(name = "getPassword",query = "select a.password from SignupEntity a where a.name=:setName")
-@NamedQuery(name = "getCount",query = "select count(a.name) from SignupEntity a where a.name=:setName")
-@NamedQuery(name = "getUserName",query = "select a.name from SignupEntity a where a.name=:setName")
-@NamedQuery(name = "getOldPassword",query = "select a.password from SignupEntity a where a.name=:setName")
-@NamedQuery(name = "getNo",query = "select a.no from SignupEntity a where a.name=:setName")
-@NamedQuery(name = "updatepassword", query = "UPDATE SignupEntity a SET a.password = :setPassword ,a.no=:setNo WHERE a.name = :setName")
-
+@NamedQuery(name = "getPasswordByName",query = "select a.password from SignupEntity a where a.name=:setName")
+@NamedQuery(name = "getCountByName",query = "select count(a.name) from SignupEntity a where a.name=:setName")
+@NamedQuery(name = "getNameByUserName",query = "select a.name from SignupEntity a where a.name=:setName")
+@NamedQuery(name = "getOldPasswordByName",query = "select a.password from SignupEntity a where a.name=:setName")
+@NamedQuery(name = "getCountBYName",query = "select a.no from SignupEntity a where a.name=:setName")
+@NamedQuery(name = "updatePassword&CountByName", query = "UPDATE SignupEntity a SET a.password = :setPassword ,a.no=:setNo WHERE a.name = :setName")
+@NamedQuery(name = "getCountValue", query = "select a.no from SignupEntity a WHERE a.name = :setName and a.password=:setPassword")
+@NamedQuery(name = "updateCountValue", query = "UPDATE SignupEntity a SET a.no=:setNo WHERE a.name = :setName")
+@NamedQuery(name = "getAll", query = "select a from SignupEntity a where a.name=:getName")
 
 public class SignupEntity {
 
@@ -37,5 +39,6 @@ public class SignupEntity {
     private String altPhhoneNo;
     @Column(name = "user_location")
     private String location;
+    @Column(name = "count_value")
     private int no;
 }

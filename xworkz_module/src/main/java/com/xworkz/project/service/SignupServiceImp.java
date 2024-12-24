@@ -45,9 +45,9 @@ public class SignupServiceImp implements SignupService {
             SignupEntity signupEntity = new SignupEntity();
             String password = passwordGenerate();
 
-            String encodedPassword=passwordEncoder.encode(password);
-            System.out.println("password : "+password );
-            System.out.println("encodedPassword : "+encodedPassword);
+            String encodedPassword = passwordEncoder.encode(password);
+            System.out.println("password : " + password);
+            System.out.println("encodedPassword : " + encodedPassword);
             signupEntity.setName(signupDTO.getName());
             signupEntity.setEmail(signupDTO.getEmail());
             signupEntity.setPassword(encodedPassword);
@@ -65,7 +65,7 @@ public class SignupServiceImp implements SignupService {
     }
 
     @Override
-    public boolean validateSigninDetails(String name,String password) {
+    public boolean validateSigninDetails(String name, String password) {
         boolean passwordMaches = true;
         String passwordFromDb = signupRepository.getUserName(name);
         if (password != null) {
@@ -92,32 +92,72 @@ public class SignupServiceImp implements SignupService {
     }
 
     @Override
-    public boolean validateUserName(String name,String oldPassword) {
-        boolean isEqual=true;
-      String[] getUserName=  signupRepository.validateUserName(name);
-        System.out.println("getUserName"+getUserName[0]);
-        if(name.equals(getUserName[0]) && oldPassword.equals(getUserName[1]) && getUserName[2].equals("-1")) {
+    public boolean validateUserName(String name, String oldPassword) {
+        boolean isEqual = true;
+        String[] getUserName = signupRepository.validateUserName(name);
+        System.out.println("getUserName" + getUserName[0]);
+        if (name.equals(getUserName[0]) && oldPassword.equals(getUserName[1]) && getUserName[2].equals("-1")) {
             System.out.println("equal");
-        }
-        else{
+        } else {
             System.out.println("User name is incorrect");
-            isEqual=false;
+            isEqual = false;
         }
 
         return isEqual;
     }
 
     @Override
-    public int updatePassword(String name,String newPassword,String confirmPassword) {
-        int value=0;
-        if(newPassword.equals(confirmPassword)) {
+    public int updatePassword(String name, String newPassword, String confirmPassword) {
+        int value = 0;
+        if (newPassword.equals(confirmPassword)) {
             System.out.println("newPassword and comfirmPassword is equal");
-            value = signupRepository.updatePassword(name,newPassword);
+            value = signupRepository.updatePassword(name, newPassword);
             System.out.println(value);
-        }
-        else {
+        } else {
             System.out.println("newPassword and comfirmPassword is notEqual");
         }
         return value;
+    }
+
+    @Override
+    public Long getCountOfUserName(String name) {
+
+        Long count = signupRepository.getCountOfUserName(name);
+        return count;
+    }
+
+    @Override
+    public int getCountValue(String name, String password) {
+        int count = signupRepository.getCountValue(name, password);
+        return count;
+    }
+
+
+    @Override
+    public int getAll(String name, String password) {
+
+        SignupEntity signupEntity = signupRepository.getAll(name, password);
+        System.out.println(signupEntity.toString());
+        if (signupEntity != null) {
+            if (name.equals(signupEntity.getName()) && password.equals(signupEntity.getPassword()) && signupEntity.getNo() >= 0) {
+                System.out.println("successfully signined");
+                signupRepository.updateCountBy1(name, 0);
+                return 1;
+
+            } else if (name.equals(signupEntity.getName()) && !password.equals(signupEntity.getPassword()) && signupEntity.getNo() >= 0 && signupEntity.getNo() <= 3) {
+                System.out.println("incorect password count increase by 1 ");
+                int countValue = signupRepository.updateCountBy1(name, signupEntity.getNo() + 1);
+                return 2;
+
+
+            } else if (name.equals(signupEntity.getName()) && !password.equals(signupEntity.getPassword()) && signupEntity.getNo() >= 0 && signupEntity.getNo() > 3) {
+                System.out.println("locked");
+                return 3;
+            }
+
+        }
+
+
+        return 0;
     }
 }

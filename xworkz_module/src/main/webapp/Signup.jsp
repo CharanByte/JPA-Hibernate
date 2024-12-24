@@ -10,7 +10,7 @@
     <style>
         body {
             background-color: #e9ecef;
-          
+
         }
          .navbar {
                     background-color: #343a40;
@@ -181,7 +181,7 @@ const validData=(event)=>{
 var altEmailSameOrNot=()=>{
 if(document.getElementById("altEmail").value===document.getElementById("email").value){
           console.log("altEmail and email are same: ");
-        document.getElementById("altEmailvalid").innerHTML="<span style='color:red'}>alternate email and email are same</span>"
+        document.getElementById("altEmailvalid").innerHTML="<span style='color:red'}>alternate email and email can't be same</span>"
 }
 else if(document.getElementById("altEmail").value!==document.getElementById("email").value){
           console.log("alt and email Notsame: ");
@@ -190,7 +190,7 @@ else if(document.getElementById("altEmail").value!==document.getElementById("ema
 var altPhoneNoSameOrNot=()=>{
 if(document.getElementById("altPhoneNo").value===document.getElementById("phoneNo").value){
           console.log("altPhoneNo and phone are same");
-        document.getElementById("altPhonevalid").innerHTML="<span style='color:red'}>Alternate PhoneNo and PhoneNo are same</span>"
+        document.getElementById("altPhonevalid").innerHTML="<span style='color:red'}>alternate phoneNo and phoneNo can't be same</span>"
 }
 else if(document.getElementById("altPhoneNo").value!==document.getElementById("phoneNo").value){
           console.log("altPhoneNo and phone are Notsame");

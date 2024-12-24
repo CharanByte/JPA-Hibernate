@@ -32,6 +32,9 @@ margin-left:70%;
  .header-spacing {
             margin-bottom: 30px;
         }
+        .lock{
+        margin-left:40%;
+        }
 </style>
 
 </head>
@@ -56,6 +59,7 @@ margin-left:70%;
         </div>
     </div>
 </nav>
+<h3 class="lock"style="color:red">${locked}</h3>
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
@@ -67,7 +71,8 @@ margin-left:70%;
                     <form action="signin" method="post">
                         <div class="form-group">
                             <label for="userName">User Name</label>
-                            <input type="text" class="form-control" id="userName" name="name" required value="${dto.name}">
+                            <input type="text" class="form-control" id="userName" name="name" required value="${name}" onblur="onField()">
+                            <span id="nameValid" style="color:red"></span>
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>
@@ -83,6 +88,21 @@ margin-left:70%;
     </div>
 </div>
 
+<script>
+const onField=()=>{
+console.log("hello")
+var filedName=document.getElementById("userName");
+   var fieldValue=filedName.value;
+
+      var xhttp=new XMLHttpRequest();
+        xhttp.open("GET","http://localhost:8081/xworkz_module/filedName/" + fieldValue,true);
+        xhttp.send();
+
+        xhttp.onload = function() {
+            document.getElementById("nameValid").innerHTML = this.responseText;
+        };
+        }
+</script>
 <!-- Bootstrap JS and dependencies -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>

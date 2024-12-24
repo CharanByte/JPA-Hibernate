@@ -18,4 +18,12 @@ public interface SignupRepository {
     String[] validateUserName(String name);
 
     int updatePassword(String name,String newPassword);
+
+    Long getCountOfUserName(String name);
+
+    int getCountValue(String name, String password);
+
+    SignupEntity getAll(String name, String password);
+
+    int updateCountBy1(String name, int loginCount);
 }

@@ -89,7 +89,7 @@
 
 <div class="main-section">
     <div class="container">
-        <h1>Welcome to Login</h1>
+        <h1>Welcome to X-workz</h1>
         <p>Don`t have an account?</p>
         <button class="sign-up-btn">
             <a href="Signup.jsp">Sign up</a>
