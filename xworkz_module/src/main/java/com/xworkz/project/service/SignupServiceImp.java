@@ -4,7 +4,6 @@ import com.xworkz.project.dto.SignupDTO;
 import com.xworkz.project.entity.SignupEntity;
 import com.xworkz.project.repository.SignupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.mail.*;
@@ -19,7 +18,6 @@ public class SignupServiceImp implements SignupService {
     @Autowired
     SignupRepository signupRepository;
 
-    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     String generatedPassword;
 
     public String passwordGenerate() {
@@ -151,7 +149,7 @@ public class SignupServiceImp implements SignupService {
 
             } else if (name.equals(signupEntity.getName()) && !password.equals(signupEntity.getPassword()) && signupEntity.getNo() >= 0 && signupEntity.getNo() < 3) {
                 System.out.println("incorect password count increase by 1 ");
-                int countValue = signupRepository.updateCountBy1(name, signupEntity.getNo() + 1);
+                 signupRepository.updateCountBy1(name, signupEntity.getNo() + 1);
                 return 2;
 
 

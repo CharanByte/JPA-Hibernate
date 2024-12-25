@@ -61,7 +61,7 @@ private  EntityManagerFactory entityManagerFactory;
         EntityManager em = entityManagerFactory.createEntityManager();
         EntityTransaction et = em.getTransaction();
 
-       int value;
+
         Object object=em.createNamedQuery("getPasswordByName").setParameter("setName",signupDTO).getSingleResult();
        // password=(String) object;
        // System.out.println("password fom db : "+password);

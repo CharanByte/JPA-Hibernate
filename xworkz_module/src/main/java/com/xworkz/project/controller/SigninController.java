@@ -1,6 +1,5 @@
 package com.xworkz.project.controller;
 
-import com.xworkz.project.entity.SignupEntity;
 import com.xworkz.project.service.SignupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
