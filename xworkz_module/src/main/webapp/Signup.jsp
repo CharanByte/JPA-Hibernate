@@ -77,9 +77,9 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6">
-        <c:if test="${not empty error}">
-                <div class="error">${error} </div>
-        </c:if>
+ <c:forEach items = "${error}" var = "i">
+        <span>${i.defaultMessage}</span>
+         </c:forEach>
             <div class="form-container">
                 <h2>Sign Up</h2>
                 <form action="signup" method="post">

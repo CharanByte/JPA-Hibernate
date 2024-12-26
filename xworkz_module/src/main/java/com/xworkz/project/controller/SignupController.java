@@ -26,7 +26,9 @@ public class SignupController {
     public String signup(Model model, @Valid SignupDTO signupDTO, BindingResult bindingResult) {
         System.out.println(signupDTO);
         if(bindingResult.hasErrors()){
-           model.addAttribute("error",bindingResult.getFieldError().getDefaultMessage());
+            System.out.println("valididation : "+bindingResult.getAllErrors());
+           model.addAttribute("error",bindingResult.getAllErrors());
+            System.out.println();
             return "Signup.jsp";
         }
         boolean valid = signupService.valid(signupDTO);

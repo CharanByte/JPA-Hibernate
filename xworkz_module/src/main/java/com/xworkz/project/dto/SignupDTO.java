@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
 public class SignupDTO {
 
     @NotNull
-    @Size(min = 2,max = 10 ,message = "Name must be greater 2 characters")
+    @Size(min = 2,max = 10 ,message = "Name must have greater 2 characters")
     private String name;
     @NotNull
     @Email(message = "Enter valid Email Id")
