@@ -85,27 +85,27 @@
                 <form action="signup" method="post">
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="text" class="form-control" id="nameid" name="name" placeholder="Enter name" oninput="onField()">
+                        <input type="text" class="form-control" id="nameid" name="name" placeholder="Enter name" oninput="onField()" onblur="validData(event)">
                         <span id="nameValid" style="color:red"></span>
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" oninput="validData(event)" >
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" onblur="validData(event)" >
                         <span id="emailvalid"></span>
                     </div>
                     <div class="form-group">
                         <label for="phoneNo">Phone Number</label>
-                        <input type="text" class="form-control" id="phoneNo" name="phoneNo" placeholder="Enter phone number" oninput="validData(event)">
+                        <input type="text" class="form-control" id="phoneNo" name="phoneNo" placeholder="Enter phone number" onblur="validData(event)">
                         <span id="phonevalid"></span>
                     </div>
                     <div class="form-group">
                         <label for="altEmail">Alternate Email</label>
-                        <input type="email" class="form-control" id="altEmail" name="altEmail" placeholder="Enter alternate email" oninput="validData(event)" onblur="altEmailSameOrNot()">
+                        <input type="email" class="form-control" id="altEmail" name="altEmail" placeholder="Enter alternate email" onblur="validData(event)" oninput="altEmailSameOrNot()">
                         <span id="altEmailvalid"></span>
                     </div>
                     <div class="form-group">
                         <label for="altPhoneNo">Alternate Phone Number</label>
-                        <input type="text" class="form-control" id="altPhoneNo" name="altPhoneNo" placeholder="Enter alternate phone number" oninput="validData(event)" onblur="altPhoneNoSameOrNot()">
+                        <input type="text" class="form-control" id="altPhoneNo" name="altPhoneNo" placeholder="Enter alternate phone number" onblur="validData(event)" oninput="altPhoneNoSameOrNot()">
                         <span id="altPhonevalid"></span>
                     </div>
                     <div class="form-group">
@@ -123,62 +123,67 @@
 const onField=()=>{
 var placeName=document.getElementById("nameid");
    var placeValue=placeName.value;
-
+if(placeValue!=""){
       var xhttp=new XMLHttpRequest();
         xhttp.open("GET","http://localhost:8081/xworkz_module/placeName/" + placeValue,true);
         xhttp.send();
 
         xhttp.onload = function() {
             document.getElementById("nameValid").innerHTML = this.responseText;
-        };
+        }
+        }
 
 }
 
 
 const validData=(event)=>{
     const {name,value}=event.target;
-    if(name==="name" && value.length>=2){
+    var regex =  /^[A-Z][a-zA-Z]*$/;
+    var regex1 = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+     var regex2 = /^[0-9]+$/;
+    if(name==="name" && value.length>=2 && regex.test(value)){
         console.log("valid name");
       document.getElementById("nameValid").innerHTML="<span></span>"
     }
-    else if(name==="name" && value.length<2){
+    else if(name==="name" && (value.length<2 || !regex.test(value) )){
     console.log("name not valid");
     document.getElementById("nameValid").innerHTML="<span style='color:red'}> name invalid</span>"
     }
 
-    if(name==="email" && value.includes("@gmail.com")){
+    if(name==="email" && (regex1.test(value))){
         console.log("valid email");
         document.getElementById("emailvalid").innerHTML="<span}></span>"
     }
-    else if(name==="email" && !value.includes("@gmail.com")){
+    else if(name==="email" && !regex1.test(value)){
     console.log("email not valid");
     document.getElementById("emailvalid").innerHTML="<span style='color:red'}> Email invalid</span>"
     }
 
-    if(name==="phoneNo" && value.length==10){
+
+    if(name==="phoneNo" && value.length==10 && regex2.test(value)){
         console.log("phoneNo valid");
         document.getElementById("phonevalid").innerHTML="<span}></span>"
     }
-    else if(name==="phoneNo" && value.length!=10){
+    else if(name==="phoneNo" && (value.length!=10 || !regex2.test(value))){
     console.log("phoneNo invalid");
     document.getElementById("phonevalid").innerHTML="<span style='color:red'}> Phone Number invalid</span>"
     }
 
-    if(name==="altEmail" && value.includes("@gmail.com")){
+    if(name==="altEmail" && regex1.test(value) && value!==document.getElementById("email").value){
         console.log("altvalid email");
         document.getElementById("altEmailvalid").innerHTML="<span}></span>"
     }
 
-    else if(name==="altEmail" && !value.includes("@gmail.com")){
+    else if(name==="altEmail" && (!regex1.test(value) || value===document.getElementById("email").value)){
     console.log("altemail not valid");
     document.getElementById("altEmailvalid").innerHTML="<span style='color:red'}> Email invalid</span>"
     }
 
-    if(name==="altPhoneNo" && value.length==10){
+    if(name==="altPhoneNo" && value.length==10 && regex2.test(value) && value!==document.getElementById("phoneNo").value){
         console.log("altphoneNo valid");
         document.getElementById("altPhonevalid").innerHTML="<span}></span>"
     }
-    else if(name==="altPhoneNo" && value.length!=10){
+    else if(name==="altPhoneNo" && (value.length!=10 || !regex2.test(value) || value===document.getElementById("phoneNo").value)){
     console.log("altphoneNo invalid");
     document.getElementById("altPhonevalid").innerHTML="<span style='color:red'}> Phone Number invalid</span>"
     }
