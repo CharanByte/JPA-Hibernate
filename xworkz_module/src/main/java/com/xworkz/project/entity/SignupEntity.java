@@ -20,7 +20,7 @@ import javax.persistence.*;
 @NamedQuery(name = "updateCountValue", query = "UPDATE SignupEntity a SET a.no=:setNo WHERE a.name = :setName")
 @NamedQuery(name = "getAll", query = "select a from SignupEntity a where a.name=:getName")
 
-public class SignupEntity {
+public class SignupEntity extends AbstractAdutEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,5 +1,6 @@
 package com.xworkz.project.dto;
 
+import com.xworkz.project.entity.AbstractAdutEntity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,7 +11,7 @@ import javax.validation.constraints.Size;
 
 @Data
 @NoArgsConstructor
-public class SignupDTO {
+public class SignupDTO extends AbstractAdutEntity {
 
     @NotNull
     @Size(min = 2,max = 10 ,message = "Name must have greater 2 characters")
@@ -26,4 +27,5 @@ public class SignupDTO {
     @Digits(integer = 10, fraction = 0 ,message = "Number should contain 10 digits")
     private String altPhoneNo;
     private String location;
+
 }

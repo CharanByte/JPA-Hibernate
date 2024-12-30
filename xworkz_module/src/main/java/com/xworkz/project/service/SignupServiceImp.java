@@ -44,10 +44,11 @@ public class SignupServiceImp implements SignupService {
     @Override
     public boolean valid(SignupDTO signupDTO) {
         boolean valid = false;
-        if (signupDTO.getEmail() != null) {
+
+
+        if (signupDTO!=null && signupDTO.getEmail() != null) {
             SignupEntity signupEntity = new SignupEntity();
             generatedPassword = passwordGenerate();
-
             // String encodedPassword = passwordEncoder.encode(generatedPassword);
             System.out.println("password : " + generatedPassword);
             // System.out.println("encodedPassword : " + encodedPassword);
@@ -59,10 +60,13 @@ public class SignupServiceImp implements SignupService {
             signupEntity.setAltPhhoneNo(signupDTO.getAltPhoneNo());
             signupEntity.setLocation(signupDTO.getLocation());
             signupEntity.setNo(-1);
+            signupEntity.setCreatedBy(signupDTO.getName());
+            signupEntity.getCreatedDate();
+
             valid = true;
 
             System.out.println("generated password  : " + generatedPassword);
-            boolean saved = signupRepository.save(signupEntity);
+            signupRepository.save(signupEntity);
         }
         return valid;
     }
@@ -84,14 +88,14 @@ public class SignupServiceImp implements SignupService {
 
     @Override
     public int checkUserName(SignupDTO signupDTO) {
-        int valid = signupRepository.checkUserName(signupDTO);
-        return valid;
+
+        return signupRepository.checkUserName(signupDTO);
     }
 
     @Override
     public long getCountOfName(String name) {
-        long value = signupRepository.getCountOfName(name);
-        return value;
+
+        return signupRepository.getCountOfName(name);
     }
 
     @Override
@@ -125,14 +129,13 @@ public class SignupServiceImp implements SignupService {
     @Override
     public Long getCountOfUserName(String name) {
 
-        Long count = signupRepository.getCountOfUserName(name);
-        return count;
+        return signupRepository.getCountOfUserName(name);
     }
 
     @Override
     public int getCountValue(String name, String password) {
-        int count = signupRepository.getCountValue(name, password);
-        return count;
+        return signupRepository.getCountValue(name, password);
+
     }
 
 
@@ -153,7 +156,7 @@ public class SignupServiceImp implements SignupService {
                 return 2;
 
 
-            } else if (name.equals(signupEntity.getName()) && !password.equals(signupEntity.getPassword()) && signupEntity.getNo() >= 0 && signupEntity.getNo() >= 3) {
+            } else if (name.equals(signupEntity.getName()) && !password.equals(signupEntity.getPassword()) && signupEntity.getNo() >= 0 && signupEntity.getNo() >=3) {
                 System.out.println("locked");
                 return 3;
             }
