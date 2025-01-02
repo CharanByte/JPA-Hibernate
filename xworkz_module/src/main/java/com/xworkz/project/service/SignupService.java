@@ -25,4 +25,6 @@ public interface SignupService {
     int getAll(String name, String password);
 
     boolean saveEmail(String email);
+
+    int updateExistingDetails(SignupDTO signupDTO);
 }

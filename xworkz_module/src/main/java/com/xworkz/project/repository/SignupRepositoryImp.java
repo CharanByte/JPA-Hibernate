@@ -258,5 +258,28 @@ private  EntityManagerFactory entityManagerFactory;
         return updateValue;
     }
 
+    @Override
+    public int updateExistingDetails(SignupDTO signupDTO) {
+        EntityManager em = entityManagerFactory.createEntityManager();
+        EntityTransaction et = em.getTransaction();
+
+
+        int updatedValue = 0;
+        try {
+            et.begin();
+            updatedValue = em.createNamedQuery("updateExistingDetailsByName").setParameter("setEmail", signupDTO.getEmail()).setParameter("setPhoneNo", signupDTO.getPhoneNo()).setParameter("setAltEmail", signupDTO.getAltEmail()).setParameter("setaltPhoneNo", signupDTO.getAltPhoneNo()).setParameter("setLocation", signupDTO.getLocation()).setParameter("setName", signupDTO.getName()).executeUpdate();
+
+            et.commit();
+        } catch (Exception e) {
+            if (et.isActive()) {
+                et.rollback();
+            }
+        } finally {
+            em.close();
+        }
+        System.out.println("updatedValue : " + updatedValue);
+        return updatedValue;
+    }
+
 
 }

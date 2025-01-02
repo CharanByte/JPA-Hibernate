@@ -53,11 +53,11 @@ public class SignupController {
         boolean valid = signupService.valid(signupDTO);
         if (valid) {
              signupService.saveEmail(signupDTO.getEmail());
-             model.addAttribute("success","successfully signedup as "+signupDTO.getName());
+             model.addAttribute("success","Registered Successfully as "+signupDTO.getName());
 
              model.addAttribute("dto",signupDTO);
 
-            return "Success.jsp";
+            return "UpdateUserDetails.jsp";
         }
         return "Signup.jsp";
     }

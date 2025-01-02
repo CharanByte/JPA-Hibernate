@@ -19,6 +19,7 @@ import javax.persistence.*;
 @NamedQuery(name = "getCountValue", query = "select a.no from SignupEntity a WHERE a.name = :setName and a.password=:setPassword")
 @NamedQuery(name = "updateCountValue", query = "UPDATE SignupEntity a SET a.no=:setNo WHERE a.name = :setName")
 @NamedQuery(name = "getAll", query = "select a from SignupEntity a where a.name=:getName")
+@NamedQuery(name = "updateExistingDetailsByName", query = "UPDATE SignupEntity a SET a.email=:setEmail,a.phoneNo=:setPhoneNo,a.altEmail=:setAltEmail,a.altPhhoneNo=:setaltPhoneNo,a.location=:setLocation WHERE a.name=:setName")
 
 public class SignupEntity extends AbstractAdutEntity{
 

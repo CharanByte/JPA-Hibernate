@@ -14,7 +14,7 @@ import javax.validation.constraints.Size;
 public class SignupDTO extends AbstractAdutEntity {
 
     @NotNull
-    @Size(min = 2,max = 10 ,message = "Name must have greater 2 characters")
+    @Size(min = 2,max = 30 ,message = "Name must have greater 2 characters")
     private String name;
     @NotNull
     @Email(message = "Enter valid Email Id")

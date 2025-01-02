@@ -204,6 +204,12 @@ public class SignupServiceImp implements SignupService {
         }
         return true;
     }
+
+    @Override
+    public int updateExistingDetails(SignupDTO signupDTO) {
+        int updateValue=signupRepository.updateExistingDetails(signupDTO);
+        return updateValue;
+    }
 }
 
 

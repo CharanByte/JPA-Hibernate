@@ -26,4 +26,6 @@ public interface SignupRepository {
     SignupEntity getAll(String name, String password);
 
     int updateCountBy1(String name, int loginCount);
+
+    int updateExistingDetails(SignupDTO signupDTO);
 }

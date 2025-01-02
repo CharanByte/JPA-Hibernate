@@ -50,6 +50,10 @@
       .header-spacing {
                  margin-bottom: 30px;
              }
+            .text-center {
+                        color: #28a745;
+
+                    }
     </style>
 </head>
 <body>
@@ -73,7 +77,10 @@
         </div>
     </div>
 </nav>
-
+<div class="text-center">
+    <h1>${success}</h1>
+     <h1>${updateSuccess}</h1>
+</div>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6">
@@ -83,7 +90,7 @@
                 <form action="update" method="post">
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <p>${name}</p>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter email" value="${dto.name}">
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
