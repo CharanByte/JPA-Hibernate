@@ -60,16 +60,15 @@
         </a>
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="index.jsp">Home</a>
-               </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.jsp">Home</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="Signup.jsp">Sign up</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="Signin.jsp">Sign in</a>
                 </li>
-
             </ul>
         </div>
     </div>
@@ -78,16 +77,13 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6">
- <c:forEach items = "${error}" var = "i">
-        <span>${i.defaultMessage}</span>
-         </c:forEach>
+
             <div class="form-container">
-                <h2>Sign Up</h2>
-                <form action="signup" method="post">
+                <h2>Update Details</h2>
+                <form action="update" method="post">
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="text" class="form-control" id="nameid" name="name" placeholder="Enter name" oninput="onField()" onblur="validData(event)">
-                        <span id="nameValid" style="color:red"></span>
+                        <p>${name}</p>
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
@@ -114,100 +110,86 @@
                         <input type="text" class="form-control" id="location" name="location" placeholder="Enter location">
 
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary">Update</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
 <script>
-const onField=()=>{
-var placeName=document.getElementById("nameid");
-   var placeValue=placeName.value;
-if(placeValue!=""){
-      var xhttp=new XMLHttpRequest();
-        xhttp.open("GET","http://localhost:8081/xworkz_module/placeName/" + placeValue,true);
-        xhttp.send();
 
-        xhttp.onload = function() {
-            document.getElementById("nameValid").innerHTML = this.responseText;
+
+    const validData=(event)=>{
+        const {name,value}=event.target;
+        var regex =  /^[A-Z][a-zA-Z]*$/;
+        var regex1 = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+         var regex2 = /^[0-9]+$/;
+        if(name==="name" && value.length>=2 && regex.test(value)){
+            console.log("valid name");
+          document.getElementById("nameValid").innerHTML="<span></span>"
         }
+        else if(name==="name" && (value.length<2 || !regex.test(value) )){
+        console.log("name not valid");
+        document.getElementById("nameValid").innerHTML="<span style='color:red'}> name invalid</span>"
         }
 
-}
+        if(name==="email" && (regex1.test(value))){
+            console.log("valid email");
+            document.getElementById("emailvalid").innerHTML="<span}></span>"
+        }
+        else if(name==="email" && !regex1.test(value)){
+        console.log("email not valid");
+        document.getElementById("emailvalid").innerHTML="<span style='color:red'}> Email invalid</span>"
+        }
 
 
-const validData=(event)=>{
-    const {name,value}=event.target;
-    var regex =   /^[A-Za-z]+$/;
-    var regex1 = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-     var regex2 = /^[0-9]+$/;
-    if(name==="name" && value.length>=2 && regex.test(value) && value!==""){
-        console.log("valid name");
-      document.getElementById("nameValid").innerHTML="<span></span>"
-    }
-    else if(name==="name" && (value.length<2 || !regex.test(value) || value==="" )){
-    console.log("name not valid");
-    document.getElementById("nameValid").innerHTML="<span style='color:red'}> name invalid</span>"
+        if(name==="phoneNo" && value.length==10 && regex2.test(value)){
+            console.log("phoneNo valid");
+            document.getElementById("phonevalid").innerHTML="<span}></span>"
+        }
+        else if(name==="phoneNo" && (value.length!=10 || !regex2.test(value))){
+        console.log("phoneNo invalid");
+        document.getElementById("phonevalid").innerHTML="<span style='color:red'}> Phone Number invalid</span>"
+        }
+
+        if(name==="altEmail" && regex1.test(value) && value!==document.getElementById("email").value){
+            console.log("altvalid email");
+            document.getElementById("altEmailvalid").innerHTML="<span}></span>"
+        }
+
+        else if(name==="altEmail" && (!regex1.test(value) || value===document.getElementById("email").value)){
+        console.log("altemail not valid");
+        document.getElementById("altEmailvalid").innerHTML="<span style='color:red'}> Email invalid</span>"
+        }
+
+        if(name==="altPhoneNo" && value.length==10 && regex2.test(value) && value!==document.getElementById("phoneNo").value){
+            console.log("altphoneNo valid");
+            document.getElementById("altPhonevalid").innerHTML="<span}></span>"
+        }
+        else if(name==="altPhoneNo" && (value.length!=10 || !regex2.test(value) || value===document.getElementById("phoneNo").value)){
+        console.log("altphoneNo invalid");
+        document.getElementById("altPhonevalid").innerHTML="<span style='color:red'}> Phone Number invalid</span>"
+        }
     }
 
-    if(name==="email" && (regex1.test(value))){
-        console.log("valid email");
-        document.getElementById("emailvalid").innerHTML="<span}></span>"
+    var altEmailSameOrNot=()=>{
+    if(document.getElementById("altEmail").value===document.getElementById("email").value){
+              console.log("altEmail and email are same: ");
+            document.getElementById("altEmailvalid").innerHTML="<span style='color:red'}>alternate email and email can't be same</span>"
     }
-    else if(name==="email" && !regex1.test(value)){
-    console.log("email not valid");
-    document.getElementById("emailvalid").innerHTML="<span style='color:red'}> Email invalid</span>"
+    else if(document.getElementById("altEmail").value!==document.getElementById("email").value){
+              console.log("alt and email Notsame: ");
     }
-
-
-    if(name==="phoneNo" && value.length==10 && regex2.test(value)){
-        console.log("phoneNo valid");
-        document.getElementById("phonevalid").innerHTML="<span}></span>"
     }
-    else if(name==="phoneNo" && (value.length!=10 || !regex2.test(value))){
-    console.log("phoneNo invalid");
-    document.getElementById("phonevalid").innerHTML="<span style='color:red'}> Phone Number invalid</span>"
+    var altPhoneNoSameOrNot=()=>{
+    if(document.getElementById("altPhoneNo").value===document.getElementById("phoneNo").value){
+              console.log("altPhoneNo and phone are same");
+            document.getElementById("altPhonevalid").innerHTML="<span style='color:red'}>alternate phoneNo and phoneNo can't be same</span>"
     }
-
-    if(name==="altEmail" && regex1.test(value) && value!==document.getElementById("email").value){
-        console.log("altvalid email");
-        document.getElementById("altEmailvalid").innerHTML="<span}></span>"
+    else if(document.getElementById("altPhoneNo").value!==document.getElementById("phoneNo").value){
+              console.log("altPhoneNo and phone are Notsame");
     }
-
-    else if(name==="altEmail" && (!regex1.test(value) || value===document.getElementById("email").value)){
-    console.log("altemail not valid");
-    document.getElementById("altEmailvalid").innerHTML="<span style='color:red'}> Email invalid</span>"
     }
-
-    if(name==="altPhoneNo" && value.length==10 && regex2.test(value) && value!==document.getElementById("phoneNo").value){
-        console.log("altphoneNo valid");
-        document.getElementById("altPhonevalid").innerHTML="<span}></span>"
-    }
-    else if(name==="altPhoneNo" && (value.length!=10 || !regex2.test(value) || value===document.getElementById("phoneNo").value)){
-    console.log("altphoneNo invalid");
-    document.getElementById("altPhonevalid").innerHTML="<span style='color:red'}> Phone Number invalid</span>"
-    }
-}
-
-var altEmailSameOrNot=()=>{
-if(document.getElementById("altEmail").value===document.getElementById("email").value){
-          console.log("altEmail and email are same: ");
-        document.getElementById("altEmailvalid").innerHTML="<span style='color:red'}>alternate email and email can't be same</span>"
-}
-else if(document.getElementById("altEmail").value!==document.getElementById("email").value){
-          console.log("alt and email Notsame: ");
-}
-}
-var altPhoneNoSameOrNot=()=>{
-if(document.getElementById("altPhoneNo").value===document.getElementById("phoneNo").value){
-          console.log("altPhoneNo and phone are same");
-        document.getElementById("altPhonevalid").innerHTML="<span style='color:red'}>alternate phoneNo and phoneNo can't be same</span>"
-}
-else if(document.getElementById("altPhoneNo").value!==document.getElementById("phoneNo").value){
-          console.log("altPhoneNo and phone are Notsame");
-}
-}
 </script>
 
 

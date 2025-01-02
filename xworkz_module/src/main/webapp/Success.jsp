@@ -50,6 +50,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="Signin.jsp">Sign in</a>
                 </li>
+                 <li class="nav-item">
+                           <a class="nav-link" href="UpdateUserDetails.jsp">Update</a>
+                 </li>
             </ul>
         </div>
     </div>
