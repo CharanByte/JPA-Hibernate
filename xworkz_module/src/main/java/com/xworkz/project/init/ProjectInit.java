@@ -13,12 +13,12 @@ public class ProjectInit extends AbstractAnnotationConfigDispatcherServletInitia
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return new Class[] {ProjectConfiguration.class};
+        return new Class[]{ProjectConfiguration.class};
     }
 
     @Override
     protected String[] getServletMappings() {
-        return new String[] {"/"};
+        return new String[]{"/"};
     }
 
     @Override

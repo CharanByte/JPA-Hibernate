@@ -17,7 +17,7 @@ public interface SignupRepository {
 
     String[] validateUserName(String name);
 
-    int updatePassword(String name,String newPassword);
+    int updatePassword(String name, String newPassword);
 
     Long getCountOfUserName(String name);
 
@@ -27,5 +27,5 @@ public interface SignupRepository {
 
     int updateCountBy1(String name, int loginCount);
 
-    int updateExistingDetails(SignupDTO signupDTO);
+    int updateExistingDetails(SignupEntity signupDTO);
 }

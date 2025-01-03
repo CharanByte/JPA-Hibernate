@@ -86,7 +86,7 @@
                 <form action="signup" method="post">
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="text" class="form-control" id="nameid" name="name" placeholder="Enter name" oninput="onField()" onblur="validData(event)">
+                        <input type="text" class="form-control" id="nameid" name="name" placeholder="Enter name"  onblur="validData(event)" onchange="onField()">
                         <span id="nameValid" style="color:red"></span>
                     </div>
                     <div class="form-group">
@@ -111,7 +111,12 @@
                     </div>
                     <div class="form-group">
                         <label for="location">Location</label>
-                        <input type="text" class="form-control" id="location" name="location" placeholder="Enter location">
+                        <select class="form-control" id="location" name="location">
+                        <option value="">Select option</option>
+                        <c:forEach items="${location}" var="loc">
+                        <option value="${loc}">${loc}</option>
+                        </c:forEach>
+                        </select>
 
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
@@ -126,7 +131,7 @@ var placeName=document.getElementById("nameid");
    var placeValue=placeName.value;
 if(placeValue!=""){
       var xhttp=new XMLHttpRequest();
-        xhttp.open("GET","http://localhost:8081/xworkz_module/placeName/" + placeValue,true);
+        xhttp.open("GET","http://localhost:8082/xworkz_module/placeName/" + placeValue,true);
         xhttp.send();
 
         xhttp.onload = function() {

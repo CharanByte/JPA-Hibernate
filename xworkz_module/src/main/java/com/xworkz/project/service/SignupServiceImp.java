@@ -46,7 +46,7 @@ public class SignupServiceImp implements SignupService {
         boolean valid = false;
 
 
-        if (signupDTO!=null && signupDTO.getEmail() != null) {
+        if (signupDTO != null && signupDTO.getEmail() != null) {
             SignupEntity signupEntity = new SignupEntity();
             generatedPassword = passwordGenerate();
             // String encodedPassword = passwordEncoder.encode(generatedPassword);
@@ -152,11 +152,10 @@ public class SignupServiceImp implements SignupService {
 
             } else if (name.equals(signupEntity.getName()) && !password.equals(signupEntity.getPassword()) && signupEntity.getNo() >= 0 && signupEntity.getNo() < 3) {
                 System.out.println("incorect password count increase by 1 ");
-                 signupRepository.updateCountBy1(name, signupEntity.getNo() + 1);
+                signupRepository.updateCountBy1(name, signupEntity.getNo() + 1);
                 return 2;
 
-
-            } else if (name.equals(signupEntity.getName()) && !password.equals(signupEntity.getPassword()) && signupEntity.getNo() >= 0 && signupEntity.getNo() >=3) {
+            } else if (name.equals(signupEntity.getName()) && !password.equals(signupEntity.getPassword()) && signupEntity.getNo() >= 0 && signupEntity.getNo() >= 3) {
                 System.out.println("locked");
                 return 3;
             }
@@ -207,8 +206,24 @@ public class SignupServiceImp implements SignupService {
 
     @Override
     public int updateExistingDetails(SignupDTO signupDTO) {
-        int updateValue=signupRepository.updateExistingDetails(signupDTO);
-        return updateValue;
+        SignupEntity signupEntity = new SignupEntity();
+        signupEntity.setName(signupDTO.getName());
+        signupEntity.setEmail(signupDTO.getEmail());
+        signupEntity.setPhoneNo(signupDTO.getPhoneNo());
+        signupEntity.setAltEmail(signupDTO.getAltEmail());
+        signupEntity.setAltPhhoneNo(signupDTO.getAltPhoneNo());
+        signupEntity.setLocation(signupDTO.getLocation());
+        signupEntity.setUpdatedBy(signupDTO.getName());
+        signupEntity.getUpdatedBy();
+
+        return signupRepository.updateExistingDetails(signupEntity);
+
+    }
+
+    @Override
+    public SignupEntity getAllDetails(String name, String password) {
+       SignupEntity signupEntity= signupRepository.getAll(name,password);
+        return signupEntity;
     }
 }
 

@@ -1,6 +1,7 @@
 package com.xworkz.project.service;
 
 import com.xworkz.project.dto.SignupDTO;
+import com.xworkz.project.entity.SignupEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -8,15 +9,15 @@ public interface SignupService {
 
     boolean valid(SignupDTO signupDTO);
 
-    boolean validateSigninDetails(String name,String password);
+    boolean validateSigninDetails(String name, String password);
 
     int checkUserName(SignupDTO signupDTO);
 
     long getCountOfName(String name);
 
-    boolean validateUserName(String name,String oldPassword);
+    boolean validateUserName(String name, String oldPassword);
 
-    int updatePassword(String name,String newPassword,String confirmPassword);
+    int updatePassword(String name, String newPassword, String confirmPassword);
 
     Long getCountOfUserName(String name);
 
@@ -27,4 +28,6 @@ public interface SignupService {
     boolean saveEmail(String email);
 
     int updateExistingDetails(SignupDTO signupDTO);
+
+    SignupEntity getAllDetails(String name, String password);
 }

@@ -90,31 +90,31 @@
                 <form action="update" method="post">
                     <div class="form-group">
                         <label for="name">Name</label>
-                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter email" value="${dto.name}">
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter email" value="${signupEntity.name}">
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" onblur="validData(event)" >
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" onblur="validData(event)" value="${signupEntity.email}">
                         <span id="emailvalid"></span>
                     </div>
                     <div class="form-group">
                         <label for="phoneNo">Phone Number</label>
-                        <input type="text" class="form-control" id="phoneNo" name="phoneNo" placeholder="Enter phone number" onblur="validData(event)">
+                        <input type="text" class="form-control" id="phoneNo" name="phoneNo" placeholder="Enter phone number" onblur="validData(event)" value="${signupEntity.phoneNo}">
                         <span id="phonevalid"></span>
                     </div>
                     <div class="form-group">
                         <label for="altEmail">Alternate Email</label>
-                        <input type="email" class="form-control" id="altEmail" name="altEmail" placeholder="Enter alternate email" onblur="validData(event)" oninput="altEmailSameOrNot()">
+                        <input type="email" class="form-control" id="altEmail" name="altEmail" placeholder="Enter alternate email" onblur="validData(event)" oninput="altEmailSameOrNot()" value="${signupEntity.altEmail}">
                         <span id="altEmailvalid"></span>
                     </div>
                     <div class="form-group">
                         <label for="altPhoneNo">Alternate Phone Number</label>
-                        <input type="text" class="form-control" id="altPhoneNo" name="altPhoneNo" placeholder="Enter alternate phone number" onblur="validData(event)" oninput="altPhoneNoSameOrNot()">
+                        <input type="text" class="form-control" id="altPhoneNo" name="altPhoneNo" placeholder="Enter alternate phone number" onblur="validData(event)" oninput="altPhoneNoSameOrNot()" value="${signupEntity.altPhhoneNo}">
                         <span id="altPhonevalid"></span>
                     </div>
                     <div class="form-group">
                         <label for="location">Location</label>
-                        <input type="text" class="form-control" id="location" name="location" placeholder="Enter location">
+                        <input type="text" class="form-control" id="location" name="location" placeholder="Enter location" value="${signupEntity.location}">
 
                     </div>
                     <button type="submit" class="btn btn-primary">Update</button>

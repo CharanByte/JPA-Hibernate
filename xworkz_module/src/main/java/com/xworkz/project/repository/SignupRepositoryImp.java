@@ -9,9 +9,9 @@ import javax.persistence.*;
 import java.util.List;
 
 @Repository
-public class SignupRepositoryImp implements SignupRepository{
-@Autowired
-private  EntityManagerFactory entityManagerFactory;
+public class SignupRepositoryImp implements SignupRepository {
+    @Autowired
+    private EntityManagerFactory entityManagerFactory;
 
 
     @Override
@@ -38,10 +38,10 @@ private  EntityManagerFactory entityManagerFactory;
         EntityManager em = entityManagerFactory.createEntityManager();
         EntityTransaction et = em.getTransaction();
 
-        String password=null;
-        Object object=em.createNamedQuery("getPasswordByName").setParameter("setName",name).getSingleResult();
-       password=(String) object;
-        System.out.println("password fom db : "+password);
+        String password = null;
+        Object object = em.createNamedQuery("getPasswordByName").setParameter("setName", name).getSingleResult();
+        password = (String) object;
+        System.out.println("password fom db : " + password);
         try {
             et.begin();
 
@@ -62,9 +62,8 @@ private  EntityManagerFactory entityManagerFactory;
         EntityTransaction et = em.getTransaction();
 
 
-        Object object=em.createNamedQuery("getPasswordByName").setParameter("setName",signupDTO).getSingleResult();
-       // password=(String) object;
-       // System.out.println("password fom db : "+password);
+        em.createNamedQuery("getPasswordByName").setParameter("setName", signupDTO).getSingleResult();
+
         try {
             et.begin();
 
@@ -85,9 +84,9 @@ private  EntityManagerFactory entityManagerFactory;
         EntityTransaction et = em.getTransaction();
 
         Long count;
-        Object object=em.createNamedQuery("getCountByName").setParameter("setName",name).getSingleResult();
-      count=(Long)object;
-        System.out.println("count is : "+count );
+        Object object = em.createNamedQuery("getCountByName").setParameter("setName", name).getSingleResult();
+        count = (Long) object;
+        System.out.println("count is : " + count);
         try {
             et.begin();
 
@@ -109,19 +108,19 @@ private  EntityManagerFactory entityManagerFactory;
         EntityTransaction et = em.getTransaction();
 
 
-        Object object=em.createNamedQuery("getNameByUserName").setParameter("setName",name).getSingleResult();
-        String string=(String)object;
-        System.out.println("username from db : "+string);
+        Object object = em.createNamedQuery("getNameByUserName").setParameter("setName", name).getSingleResult();
+        String string = (String) object;
+        System.out.println("username from db : " + string);
 
-        Object object1=em.createNamedQuery("getOldPasswordByName").setParameter("setName",name).getSingleResult();
-        String string1=(String)object1;
+        Object object1 = em.createNamedQuery("getOldPasswordByName").setParameter("setName", name).getSingleResult();
+        String string1 = (String) object1;
         System.out.println(string1);
 
-        Object object2=em.createNamedQuery("getCountBYName").setParameter("setName",name).getSingleResult();
-        String string2=String.valueOf(object2);
+        Object object2 = em.createNamedQuery("getCountBYName").setParameter("setName", name).getSingleResult();
+        String string2 = String.valueOf(object2);
         System.out.println(string2);
-        String[] ref={string,string1,string2};
-        System.out.println("repo"+ref[0]+ " "+ref[1]+ " "+ref[2]);
+        String[] ref = {string, string1, string2};
+        System.out.println("repo" + ref[0] + " " + ref[1] + " " + ref[2]);
         try {
             et.begin();
 
@@ -138,15 +137,15 @@ private  EntityManagerFactory entityManagerFactory;
     }
 
     @Override
-    public int updatePassword(String name,String newPassword) {
+    public int updatePassword(String name, String newPassword) {
         EntityManager em = entityManagerFactory.createEntityManager();
         EntityTransaction et = em.getTransaction();
-        int value=0;
+        int value = 0;
 
         try {
             et.begin();
-             value= em.createNamedQuery("updatePassword&CountByName").setParameter("setPassword",newPassword).setParameter("setNo",0).setParameter("setName",name).executeUpdate();
-            System.out.println("value from repo : "+value);
+            value = em.createNamedQuery("updatePassword&CountByName").setParameter("setPassword", newPassword).setParameter("setNo", 0).setParameter("setName", name).executeUpdate();
+            System.out.println("value from repo : " + value);
             et.commit();
 
         } catch (Exception e) {
@@ -165,9 +164,9 @@ private  EntityManagerFactory entityManagerFactory;
         EntityTransaction et = em.getTransaction();
 
         Long count;
-        Object object=em.createNamedQuery("getCountByName").setParameter("setName",name).getSingleResult();
-        count=(Long)object;
-        System.out.println("count is : "+count );
+        Object object = em.createNamedQuery("getCountByName").setParameter("setName", name).getSingleResult();
+        count = (Long) object;
+        System.out.println("count is : " + count);
         try {
             et.begin();
 
@@ -189,9 +188,9 @@ private  EntityManagerFactory entityManagerFactory;
         EntityTransaction et = em.getTransaction();
 
         int count;
-        Object object=em.createNamedQuery("getCountValue").setParameter("setName",name).setParameter("setPassword",password).getSingleResult();
-        count=(Integer)object;
-        System.out.println("count is : "+count );
+        Object object = em.createNamedQuery("getCountValue").setParameter("setName", name).setParameter("setPassword", password).getSingleResult();
+        count = (Integer) object;
+        System.out.println("count is : " + count);
         try {
             et.begin();
 
@@ -239,14 +238,14 @@ private  EntityManagerFactory entityManagerFactory;
     public int updateCountBy1(String name, int loginCount) {
         EntityManager em = entityManagerFactory.createEntityManager();
         EntityTransaction et = em.getTransaction();
-      int updateValue=0;
+        int updateValue = 0;
 
         try {
             et.begin();
 
-          updateValue = em.createNamedQuery("updateCountValue").setParameter("setName", name).setParameter("setNo",loginCount).executeUpdate();
+            updateValue = em.createNamedQuery("updateCountValue").setParameter("setName", name).setParameter("setNo", loginCount).executeUpdate();
 
-            System.out.println("updateValue  "+updateValue);
+            System.out.println("updateValue  " + updateValue);
             et.commit();
         } catch (Exception e) {
             if (et.isActive()) {
@@ -259,7 +258,8 @@ private  EntityManagerFactory entityManagerFactory;
     }
 
     @Override
-    public int updateExistingDetails(SignupDTO signupDTO) {
+    public int updateExistingDetails(SignupEntity signupDTO) {
+        System.out.println("Entity : " + signupDTO);
         EntityManager em = entityManagerFactory.createEntityManager();
         EntityTransaction et = em.getTransaction();
 
@@ -267,7 +267,7 @@ private  EntityManagerFactory entityManagerFactory;
         int updatedValue = 0;
         try {
             et.begin();
-            updatedValue = em.createNamedQuery("updateExistingDetailsByName").setParameter("setEmail", signupDTO.getEmail()).setParameter("setPhoneNo", signupDTO.getPhoneNo()).setParameter("setAltEmail", signupDTO.getAltEmail()).setParameter("setaltPhoneNo", signupDTO.getAltPhoneNo()).setParameter("setLocation", signupDTO.getLocation()).setParameter("setName", signupDTO.getName()).executeUpdate();
+            updatedValue = em.createNamedQuery("updateExistingDetailsByName").setParameter("setEmail", signupDTO.getEmail()).setParameter("setPhoneNo", signupDTO.getPhoneNo()).setParameter("setAltEmail", signupDTO.getAltEmail()).setParameter("setaltPhoneNo", signupDTO.getAltPhhoneNo()).setParameter("setLocation", signupDTO.getLocation()).setParameter("setName", signupDTO.getName()).setParameter("setupdatedBy", signupDTO.getName()).setParameter("setupdatedDate", signupDTO.getUpdatedDate()).executeUpdate();
 
             et.commit();
         } catch (Exception e) {

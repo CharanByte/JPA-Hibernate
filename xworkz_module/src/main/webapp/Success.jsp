@@ -51,7 +51,7 @@
                     <a class="nav-link" href="Signin.jsp">Sign in</a>
                 </li>
                  <li class="nav-item">
-                           <a class="nav-link" href="UpdateUserDetails.jsp">Update</a>
+                           <a class="nav-link" href="http://localhost:8082/xworkz_module/signin">Update</a>
                  </li>
             </ul>
         </div>
@@ -60,6 +60,7 @@
 <div class="text-center">
     <h1>${success}</h1>
 </div>
+
 <!-- Bootstrap JS and dependencies (optional) -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>

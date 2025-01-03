@@ -15,12 +15,12 @@ public class PasswordResetController {
     private SignupService signupService;
 
     @PostMapping("/passwordReset")
-    public String onReset(String name,String oldPassword,String newPassword,String confirmPassword, Model model) {
+    public String onReset(String name, String oldPassword, String newPassword, String confirmPassword, Model model) {
 
-        System.out.println(name+" "+oldPassword+" "+newPassword+" "+confirmPassword);
-        boolean valid = signupService.validateUserName(name,oldPassword);
+        System.out.println(name + " " + oldPassword + " " + newPassword + " " + confirmPassword);
+        boolean valid = signupService.validateUserName(name, oldPassword);
         if (valid) {
-            int value = signupService.updatePassword(name,newPassword,confirmPassword);
+            int value = signupService.updatePassword(name, newPassword, confirmPassword);
             System.out.println("value : " + value);
             if (value > 0) {
                 System.out.println("password updated");
@@ -32,7 +32,7 @@ public class PasswordResetController {
                 return "PasswordReset.jsp";
             }
         }
-        model.addAttribute("updated","password already updated");
+        model.addAttribute("updated", "password already updated");
         return "PasswordReset.jsp";
     }
 }
