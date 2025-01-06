@@ -27,7 +27,7 @@ public interface SignupService {
 
     boolean saveEmail(String email);
 
-    int updateExistingDetails(SignupDTO signupDTO);
+    int updateExistingDetails(SignupDTO signupDTO ,String imageProfile);
 
     SignupEntity getAllDetails(String name, String password);
 }

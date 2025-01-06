@@ -6,7 +6,6 @@ import com.xworkz.project.service.SignupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,15 +24,14 @@ import java.util.List;
 public class UpdateController {
     @Autowired
     SignupService signupService;
-    List<LocationEnum> locationEnums=new ArrayList<>(Arrays.asList(LocationEnum.values()));
-
-
+    List<LocationEnum> locationEnums = new ArrayList<>(Arrays.asList(LocationEnum.values()));
+    String filePath;
 
     @PostMapping("/update")
-    public String update(SignupDTO signupDTO, Model model) {
-        System.out.println("onupdate : " + signupDTO);
-        model.addAttribute("location",locationEnums);
-        int updatedValue = signupService.updateExistingDetails(signupDTO);
+    public String update(SignupDTO signupDTO,String thisfile, Model model) {
+        System.out.println("onupdate : " + signupDTO + " "+thisfile);
+        model.addAttribute("location", locationEnums);
+        int updatedValue = signupService.updateExistingDetails(signupDTO,filePath);
         if (updatedValue == 1) {
             System.out.println(updatedValue);
 
@@ -42,19 +40,19 @@ public class UpdateController {
         }
         return "UpdateUserDetails.jsp";
     }
+
     @PostMapping("/uploadfile")
     public String updateIng(@RequestParam("thisfile") MultipartFile multipartFile) throws IOException {
-        if(multipartFile.isEmpty()){
+        if (multipartFile.isEmpty()) {
             return "UpdateUserDetails.jsp";
-        }
-        else{
+        } else {
             System.out.println(multipartFile);
             System.out.println(multipartFile.getOriginalFilename());
-          byte[] bytes=  multipartFile.getBytes();
-        Path path =   Paths.get("C:\\img\\"+System.currentTimeMillis()+".jpg");
-            Files.write(path,bytes);
-            String filePath=path.getFileName().toString();
+            byte[] bytes = multipartFile.getBytes();
+            Path path = Paths.get("C:\\img\\" + System.currentTimeMillis() + ".jpg");
+            Files.write(path, bytes);
+            filePath = path.getFileName().toString();
         }
-        return "Success.jsp";
+        return "UpdateUserDetails.jsp";
     }
 }

@@ -267,7 +267,7 @@ public class SignupRepositoryImp implements SignupRepository {
         int updatedValue = 0;
         try {
             et.begin();
-            updatedValue = em.createNamedQuery("updateExistingDetailsByName").setParameter("setEmail", signupDTO.getEmail()).setParameter("setPhoneNo", signupDTO.getPhoneNo()).setParameter("setAltEmail", signupDTO.getAltEmail()).setParameter("setaltPhoneNo", signupDTO.getAltPhhoneNo()).setParameter("setLocation", signupDTO.getLocation()).setParameter("setName", signupDTO.getName()).setParameter("setupdatedBy", signupDTO.getName()).setParameter("setupdatedDate", signupDTO.getUpdatedDate()).executeUpdate();
+            updatedValue = em.createNamedQuery("updateExistingDetailsByName").setParameter("setEmail", signupDTO.getEmail()).setParameter("setPhoneNo", signupDTO.getPhoneNo()).setParameter("setAltEmail", signupDTO.getAltEmail()).setParameter("setaltPhoneNo", signupDTO.getAltPhhoneNo()).setParameter("setLocation", signupDTO.getLocation()).setParameter("setName", signupDTO.getName()).setParameter("setupdatedBy", signupDTO.getName()).setParameter("setupdatedDate", signupDTO.getUpdatedDate()).setParameter("setimageProfile",signupDTO.getImageProfile()).executeUpdate();
 
             et.commit();
         } catch (Exception e) {

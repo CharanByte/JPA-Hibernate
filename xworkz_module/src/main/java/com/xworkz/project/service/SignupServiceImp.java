@@ -204,7 +204,7 @@ public class SignupServiceImp implements SignupService {
     }
 
     @Override
-    public int updateExistingDetails(SignupDTO signupDTO) {
+    public int updateExistingDetails(SignupDTO signupDTO,String imageProfile) {
         SignupEntity signupEntity = new SignupEntity();
         signupEntity.setName(signupDTO.getName());
         signupEntity.setEmail(signupDTO.getEmail());
@@ -214,7 +214,7 @@ public class SignupServiceImp implements SignupService {
         signupEntity.setLocation(signupDTO.getLocation());
         signupEntity.setUpdatedBy(signupDTO.getName());
         signupEntity.getUpdatedBy();
-
+    signupEntity.setImageProfile(imageProfile);
         return signupRepository.updateExistingDetails(signupEntity);
 
     }
