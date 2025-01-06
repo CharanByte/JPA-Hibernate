@@ -50,7 +50,7 @@ public class SignupServiceImp implements SignupService {
             SignupEntity signupEntity = new SignupEntity();
             generatedPassword = passwordGenerate();
             // String encodedPassword = passwordEncoder.encode(generatedPassword);
-            System.out.println("password : " + generatedPassword);
+
             // System.out.println("encodedPassword : " + encodedPassword);
             signupEntity.setName(signupDTO.getName());
             signupEntity.setEmail(signupDTO.getEmail());
@@ -65,7 +65,6 @@ public class SignupServiceImp implements SignupService {
 
             valid = true;
 
-            System.out.println("generated password  : " + generatedPassword);
             signupRepository.save(signupEntity);
         }
         return valid;

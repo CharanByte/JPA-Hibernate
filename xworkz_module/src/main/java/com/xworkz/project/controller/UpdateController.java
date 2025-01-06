@@ -1,5 +1,6 @@
 package com.xworkz.project.controller;
 
+import com.xworkz.project.constants.LocationEnum;
 import com.xworkz.project.dto.SignupDTO;
 import com.xworkz.project.service.SignupService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,19 +10,29 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Controller
 @RequestMapping("/")
 public class UpdateController {
     @Autowired
     SignupService signupService;
-
+    List<LocationEnum> locationEnums=new ArrayList<>(Arrays.asList(LocationEnum.values()));
 
 
 
     @PostMapping("/update")
     public String update(SignupDTO signupDTO, Model model) {
         System.out.println("onupdate : " + signupDTO);
+        model.addAttribute("location",locationEnums);
         int updatedValue = signupService.updateExistingDetails(signupDTO);
         if (updatedValue == 1) {
             System.out.println(updatedValue);
@@ -30,5 +41,20 @@ public class UpdateController {
             return "UpdateUserDetails.jsp";
         }
         return "UpdateUserDetails.jsp";
+    }
+    @PostMapping("/uploadfile")
+    public String updateIng(@RequestParam("thisfile") MultipartFile multipartFile) throws IOException {
+        if(multipartFile.isEmpty()){
+            return "UpdateUserDetails.jsp";
+        }
+        else{
+            System.out.println(multipartFile);
+            System.out.println(multipartFile.getOriginalFilename());
+          byte[] bytes=  multipartFile.getBytes();
+        Path path =   Paths.get("C:\\img\\"+System.currentTimeMillis()+".jpg");
+            Files.write(path,bytes);
+            String filePath=path.getFileName().toString();
+        }
+        return "Success.jsp";
     }
 }

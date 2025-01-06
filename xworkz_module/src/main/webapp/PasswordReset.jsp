@@ -43,7 +43,7 @@
                          <a class="nav-link" href="index.jsp">Home</a>
                          </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="Signup.jsp">Sign up</a>
+                    <a class="nav-link" href="http://localhost:8083/xworkz_module/Signup">Sign up</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="Signin.jsp">Sign in</a>

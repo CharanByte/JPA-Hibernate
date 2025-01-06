@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.sql.DataSource;
@@ -38,5 +39,11 @@ public class ProjectConfiguration {
         driverManagerDataSource.setUsername("root");
         driverManagerDataSource.setPassword("charan");
         return  driverManagerDataSource;
+    }
+
+    @Bean(name="multipartResolver")
+    public CommonsMultipartResolver commonsMultipartResolver(){
+        CommonsMultipartResolver commonsMultipartResolver=new CommonsMultipartResolver();
+        return commonsMultipartResolver;
     }
 }

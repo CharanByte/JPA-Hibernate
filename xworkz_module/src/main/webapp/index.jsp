@@ -77,7 +77,7 @@
                <a class="nav-link" href="index.jsp">Home</a>
                 </li>
                 <li class="nav-item">
-                   <a class="nav-link" href="http://localhost:8082/xworkz_module/Signup">Sign up</a>
+                   <a class="nav-link" href="http://localhost:8083/xworkz_module/Signup">Sign up</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="Signin.jsp">Sign in</a>
@@ -87,13 +87,12 @@
         </div>
     </div>
 </nav>
-
 <div class="main-section">
     <div class="container">
         <h1>Welcome to X-workz</h1>
         <p>Don`t have an account?</p>
         <button class="sign-up-btn">
-            <a href="http://localhost:8082/xworkz_module/Signup">Sign up</a>
+            <a href="http://localhost:8083/xworkz_module/Signup">Sign up</a>
         </button>
     </div>
 </div>

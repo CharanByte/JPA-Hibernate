@@ -81,6 +81,13 @@
     <h1>${success}</h1>
      <h1>${updateSuccess}</h1>
 </div>
+<form action="uploadfile" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="formFile" class="form-label">Upload Your file</label>
+          <input name="thisfile" class="form-control" type="file" id="formFile">
+        </div>
+        <button class="btn btn-secondary">Upload</button>
+    </form>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6">
@@ -113,10 +120,16 @@
                         <span id="altPhonevalid"></span>
                     </div>
                     <div class="form-group">
-                        <label for="location">Location</label>
-                        <input type="text" class="form-control" id="location" name="location" placeholder="Enter location" value="${signupEntity.location}">
+                                           <label for="location">Location</label>
+                                           <select class="form-control" id="location" name="location" value="${signupEntity.location}">
+                                           <option value="">Select option</option>
+                                           <c:forEach items="${location}" var="loc">
+                                           <option value="${loc}">${loc}</option>
+                                           </c:forEach>
+                                           </select>
 
-                    </div>
+                                       </div>
+
                     <button type="submit" class="btn btn-primary">Update</button>
                 </form>
             </div>

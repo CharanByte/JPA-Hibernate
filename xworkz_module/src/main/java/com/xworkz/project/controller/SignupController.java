@@ -41,6 +41,7 @@ public class SignupController {
     public String signup(Model model, @Valid SignupDTO signupDTO, BindingResult bindingResult) {
 
         System.out.println(signupDTO);
+        model.addAttribute("location",locationEnums);
         if (bindingResult.hasErrors()) {
             System.out.println("valididation : " + bindingResult.getAllErrors());
             model.addAttribute("error", bindingResult.getAllErrors());
@@ -58,5 +59,7 @@ public class SignupController {
         }
         return "Signup.jsp";
     }
+
+
 
 }
