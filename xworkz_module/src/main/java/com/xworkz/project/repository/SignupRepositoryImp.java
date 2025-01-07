@@ -303,13 +303,14 @@ public class SignupRepositoryImp implements SignupRepository {
     }
 
     @Override
-    public void updateLockTime(String name, LocalDateTime localDateTime) {
+    public int updateLockTime(String name, LocalDateTime localDateTime) {
         EntityManager em = entityManagerFactory.createEntityManager();
         EntityTransaction et = em.getTransaction();
 
+        int value=0;
         try {
             et.begin();
-            int value=em.createNamedQuery("updateLockTime").setParameter("setTime",localDateTime).setParameter("setName",name).executeUpdate();
+             value=em.createNamedQuery("updateLockTime").setParameter("setTime",localDateTime).setParameter("setName",name).executeUpdate();
             System.out.println("updateLockTime : "+value);
             et.commit();
         } catch (Exception e) {
@@ -319,7 +320,7 @@ public class SignupRepositoryImp implements SignupRepository {
         } finally {
             em.close();
         }
-        return;
+        return value;
     }
 
 

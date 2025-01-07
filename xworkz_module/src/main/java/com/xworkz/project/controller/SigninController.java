@@ -69,7 +69,7 @@ public class SigninController {
 
 
     @PostMapping("/forgotPassword")
-    public String forgotPassword(String userName, String newPassword, String confirmNewPassword ,Model model) {
+    public String forgotPassword(String userName, String newPassword, String confirmNewPassword, Model model) {
         System.out.println(userName);
         List<String> userNames = signupService.getAllUserName();
 
@@ -77,12 +77,11 @@ public class SigninController {
         if (userNames.contains(userName)) {
 
             int value = signupService.updatePassword(userName, newPassword, confirmNewPassword);
-            if(value!=0){
-                model.addAttribute("passwordUpdated",userName+" Your password has been successfully reset");
+            if (value != 0) {
+                model.addAttribute("passwordUpdated", userName + " Your password has been successfully reset");
             }
-        }
-        else {
-            model.addAttribute("invalidUser","invalid UserName");
+        } else {
+            model.addAttribute("invalidUser", "invalid UserName");
         }
         return "forgotPassword.jsp";
     }

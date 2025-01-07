@@ -147,9 +147,17 @@ public class SignupServiceImp implements SignupService {
         System.out.println(signupEntity.toString());
         if (signupEntity != null) {
             if (name.equals(signupEntity.getName()) && password.equals(signupEntity.getPassword()) && signupEntity.getNo() >= 0) {
-                System.out.println("successfully signined");
-                signupRepository.updateCountBy1(name, 0);
-                return 1;
+                LocalDateTime a = signupEntity.getLockedtime();
+                LocalDateTime b = a.plusMinutes(2);
+                LocalDateTime time = LocalDateTime.now();
+                if (time.isAfter(b)) {
+                    System.out.println("successfully signined");
+                    signupRepository.updateCountBy1(name, 0);
+                    return 1;
+                } else {
+                    System.out.println("try after 2 min");
+                }
+                return 3;
 
             } else if (name.equals(signupEntity.getName()) && !password.equals(signupEntity.getPassword()) && signupEntity.getNo() >= 0 && signupEntity.getNo() < 3) {
                 System.out.println("incorect password count increase by 1 ");
@@ -158,8 +166,12 @@ public class SignupServiceImp implements SignupService {
 
             } else if (name.equals(signupEntity.getName()) && !password.equals(signupEntity.getPassword()) && signupEntity.getNo() >= 0 && signupEntity.getNo() >= 3) {
                 System.out.println("locked");
-                LocalDateTime localDateTime=LocalDateTime.now();
-                signupRepository.updateLockTime(name,localDateTime);
+                signupRepository.updateCountBy1(name, signupEntity.getNo() + 1);
+                if (signupEntity.getNo() == 3) {
+                    LocalDateTime localDateTime = LocalDateTime.now();
+                    System.out.println(localDateTime);
+                    signupRepository.updateLockTime(name, localDateTime);
+                }
                 return 3;
             }
 
@@ -208,7 +220,7 @@ public class SignupServiceImp implements SignupService {
     }
 
     @Override
-    public int updateExistingDetails(SignupDTO signupDTO,String imageProfile) {
+    public int updateExistingDetails(SignupDTO signupDTO, String imageProfile) {
         SignupEntity signupEntity = new SignupEntity();
         signupEntity.setName(signupDTO.getName());
         signupEntity.setEmail(signupDTO.getEmail());
@@ -218,20 +230,26 @@ public class SignupServiceImp implements SignupService {
         signupEntity.setLocation(signupDTO.getLocation());
         signupEntity.setUpdatedBy(signupDTO.getName());
         signupEntity.getUpdatedBy();
-    signupEntity.setImageProfile(imageProfile);
+        signupEntity.setImageProfile(imageProfile);
         return signupRepository.updateExistingDetails(signupEntity);
 
     }
 
     @Override
     public SignupEntity getAllDetails(String name, String password) {
-       SignupEntity signupEntity= signupRepository.getAll(name,password);
+        SignupEntity signupEntity = signupRepository.getAll(name, password);
         return signupEntity;
     }
 
     @Override
     public List<String> getAllUserName() {
         return signupRepository.getAllUserName();
+    }
+
+
+    @Override
+    public void updateCount(String name, int i) {
+        signupRepository.updateCountBy1(name, 0);
     }
 }
 

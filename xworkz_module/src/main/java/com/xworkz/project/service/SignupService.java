@@ -4,6 +4,7 @@ import com.xworkz.project.dto.SignupDTO;
 import com.xworkz.project.entity.SignupEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -34,4 +35,8 @@ public interface SignupService {
     SignupEntity getAllDetails(String name, String password);
 
     List<String> getAllUserName();
+
+
+
+    void updateCount(String name, int i);
 }

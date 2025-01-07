@@ -34,5 +34,5 @@ public interface SignupRepository {
 
     List<String> getAllUserName();
 
-    void updateLockTime(String name, LocalDateTime localDateTime);
+    int updateLockTime(String name, LocalDateTime localDateTime);
 }
