@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Properties;
 import java.util.Random;
 
@@ -156,6 +158,8 @@ public class SignupServiceImp implements SignupService {
 
             } else if (name.equals(signupEntity.getName()) && !password.equals(signupEntity.getPassword()) && signupEntity.getNo() >= 0 && signupEntity.getNo() >= 3) {
                 System.out.println("locked");
+                LocalDateTime localDateTime=LocalDateTime.now();
+                signupRepository.updateLockTime(name,localDateTime);
                 return 3;
             }
 
@@ -223,6 +227,11 @@ public class SignupServiceImp implements SignupService {
     public SignupEntity getAllDetails(String name, String password) {
        SignupEntity signupEntity= signupRepository.getAll(name,password);
         return signupEntity;
+    }
+
+    @Override
+    public List<String> getAllUserName() {
+        return signupRepository.getAllUserName();
     }
 }
 

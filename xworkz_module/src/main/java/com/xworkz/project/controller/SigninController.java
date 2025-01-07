@@ -21,7 +21,7 @@ public class SigninController {
     @Autowired
     private SignupService signupService;
     SignupEntity signupEntity;
-    List<LocationEnum> locationEnums=new ArrayList<>(Arrays.asList(LocationEnum.values()));
+    List<LocationEnum> locationEnums = new ArrayList<>(Arrays.asList(LocationEnum.values()));
 
 
     SigninController() {
@@ -29,19 +29,20 @@ public class SigninController {
     }
 
     @GetMapping("/signin")
-    public String signin(Model model){
-        System.out.println("signupEntity :"+signupEntity);
-        model.addAttribute("location",locationEnums);
+    public String signin(Model model) {
+        System.out.println("signupEntity :" + signupEntity);
+        model.addAttribute("location", locationEnums);
 
-        model.addAttribute("signupEntity",signupEntity);
+        model.addAttribute("signupEntity", signupEntity);
         return "UpdateUserDetails.jsp";
     }
+
     @PostMapping("/signin")
     public String getSignin(String name, String password, Model model) {
 
         boolean matches = signupService.validateSigninDetails(name, password);
-        if(matches){
-             signupEntity=signupService.getAllDetails(name,password);
+        if (matches) {
+            signupEntity = signupService.getAllDetails(name, password);
         }
 
         int value = signupService.getAll(name, password);
@@ -67,4 +68,22 @@ public class SigninController {
     }
 
 
+    @PostMapping("/forgotPassword")
+    public String forgotPassword(String userName, String newPassword, String confirmNewPassword ,Model model) {
+        System.out.println(userName);
+        List<String> userNames = signupService.getAllUserName();
+
+        System.out.println(userNames);
+        if (userNames.contains(userName)) {
+
+            int value = signupService.updatePassword(userName, newPassword, confirmNewPassword);
+            if(value!=0){
+                model.addAttribute("passwordUpdated",userName+" Your password has been successfully reset");
+            }
+        }
+        else {
+            model.addAttribute("invalidUser","invalid UserName");
+        }
+        return "forgotPassword.jsp";
+    }
 }

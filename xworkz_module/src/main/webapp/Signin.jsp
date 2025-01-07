@@ -81,7 +81,7 @@ margin-left:70%;
                                <p style="color:red">${failure}</p>
                         </div>
                         <button type="submit" class="btn btn-primary btn-block">Login</button>
-                        <a href="PasswordReset.jsp" class="reset">Reset Password?</a>
+                        <a href="forgotPassword.jsp" class="reset">forgot Password?</a>
                     </form>
                 </div>
             </div>

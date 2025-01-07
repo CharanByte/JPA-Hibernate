@@ -22,6 +22,9 @@ import javax.persistence.*;
 @NamedQuery(name = "updateCountValue", query = "UPDATE SignupEntity a SET a.no=:setNo WHERE a.name = :setName")
 @NamedQuery(name = "getAll", query = "select a from SignupEntity a where a.name=:getName")
 @NamedQuery(name = "updateExistingDetailsByName", query = "UPDATE SignupEntity a SET a.email=:setEmail,a.phoneNo=:setPhoneNo,a.altEmail=:setAltEmail,a.altPhhoneNo=:setaltPhoneNo,a.location=:setLocation,a.updatedBy=:setupdatedBy,a.updatedDate=:setupdatedDate,a.imageProfile=:setimageProfile WHERE a.name=:setName")
+@NamedQuery(name = "getAllUserName", query = "select a.name from SignupEntity a")
+@NamedQuery(name = "updateLockTime", query = "UPDATE SignupEntity a SET a.locked_time=:setTime where a.name=:setName")
+
 
 public class SignupEntity extends AbstractAdutEntity {
 
@@ -46,5 +49,7 @@ public class SignupEntity extends AbstractAdutEntity {
     private int no;
     @Column(name = "profile_image")
     private String imageProfile;
+    @Column(name = "locked_time")
+    private String locked_time;
 
 }

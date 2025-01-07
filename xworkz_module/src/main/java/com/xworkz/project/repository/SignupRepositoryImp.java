@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 
 @Repository
@@ -279,6 +281,45 @@ public class SignupRepositoryImp implements SignupRepository {
         }
         System.out.println("updatedValue : " + updatedValue);
         return updatedValue;
+    }
+
+    @Override
+    public List<String> getAllUserName() {
+        EntityManager em = entityManagerFactory.createEntityManager();
+        EntityTransaction et = em.getTransaction();
+        List<String> userNames= em.createNamedQuery("getAllUserName").getResultList();
+        try {
+            et.begin();
+
+            et.commit();
+        } catch (Exception e) {
+            if (et.isActive()) {
+                et.rollback();
+            }
+        } finally {
+            em.close();
+        }
+        return userNames;
+    }
+
+    @Override
+    public void updateLockTime(String name, LocalDateTime localDateTime) {
+        EntityManager em = entityManagerFactory.createEntityManager();
+        EntityTransaction et = em.getTransaction();
+
+        try {
+            et.begin();
+            int value=em.createNamedQuery("updateLockTime").setParameter("setTime",localDateTime).setParameter("setName",name).executeUpdate();
+            System.out.println("updateLockTime : "+value);
+            et.commit();
+        } catch (Exception e) {
+            if (et.isActive()) {
+                et.rollback();
+            }
+        } finally {
+            em.close();
+        }
+        return;
     }
 
 

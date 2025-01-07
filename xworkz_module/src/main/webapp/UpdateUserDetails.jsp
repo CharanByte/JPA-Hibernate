@@ -6,58 +6,53 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>SignUp</title>
+    <title>Update Details</title>
     <!-- Bootstrap CSS CDN -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
             background-color: #e9ecef;
-
+            font-family: Arial, sans-serif;
         }
-         .navbar {
-                    background-color: #343a40;
-                }
-                .navbar-brand {
-                    color: #ffffff !important;
-                }
-                .navbar-brand:hover {
-                    color: #007bff !important;
-                }
-                .main-section {
-                    text-align: center;
-                    padding: 100px 20px;
-                }
-                .main-section h1 {
-                    font-size: 3em;
-                    font-weight: bold;
-                    color: #343a40;
-                }
+        .navbar {
+            background-color: #343a40;
+        }
+        .navbar-brand {
+            color: #ffffff !important;
+        }
+        .navbar-brand:hover {
+            color: #007bff !important;
+        }
         .form-container {
             background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
+            padding: 30px;
+            border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
         }
         .form-container h2 {
             margin-bottom: 20px;
+            font-size: 1.8rem;
+            color: #343a40;
             text-align: center;
         }
-        .form-container .btn {
-            display: block;
-            width: 100%;
+        .form-group label {
+            font-weight: bold;
+        }
+        .btn {
             margin-top: 20px;
-     }
-      .header-spacing {
-                 margin-bottom: 30px;
-             }
-            .text-center {
-                        color: #28a745;
-
-                    }
+        }
+        .text-center {
+            color: #28a745;
+            margin-bottom: 20px;
+        }
+        .custom-file-label::after {
+            content: "Browse";
+        }
     </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark header-spacing">
+<nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container">
         <a class="navbar-brand" href="#">
             <img src="https://x-workz.in/static/media/Logo.cf195593dc1b3f921369.png" alt="Logo" class="logo" height="50">
@@ -77,59 +72,55 @@
         </div>
     </div>
 </nav>
-<div class="text-center">
-    <h1>${success}</h1>
-     <h1>${updateSuccess}</h1>
-</div>
-<form action="uploadfile" method="post" enctype="multipart/form-data">
-        <div class="form-group">
-          <label for="formFile" class="form-label">Upload Your file</label>
-          <input name="thisfile" class="form-control" type="file" id="formFile">
-        </div>
-        <button class="btn btn-secondary">Upload</button>
-    </form>
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
 
+<div class="container">
+    <div class="text-center">
+        <h1>${success}</h1>
+        <h1>${updateSuccess}</h1>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
             <div class="form-container">
                 <h2>Update Details</h2>
-                <form action="update" method="post">
+                <form action="update" method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="name">Name</label>
-                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter email" value="${signupEntity.name}">
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter name" value="${signupEntity.name}">
+                        <small id="nameValid" class="form-text text-danger"></small>
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
                         <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" onblur="validData(event)" value="${signupEntity.email}">
-                        <span id="emailvalid"></span>
+                        <small id="emailvalid" class="form-text text-danger"></small>
                     </div>
                     <div class="form-group">
                         <label for="phoneNo">Phone Number</label>
                         <input type="text" class="form-control" id="phoneNo" name="phoneNo" placeholder="Enter phone number" onblur="validData(event)" value="${signupEntity.phoneNo}">
-                        <span id="phonevalid"></span>
+                        <small id="phonevalid" class="form-text text-danger"></small>
                     </div>
                     <div class="form-group">
                         <label for="altEmail">Alternate Email</label>
                         <input type="email" class="form-control" id="altEmail" name="altEmail" placeholder="Enter alternate email" onblur="validData(event)" oninput="altEmailSameOrNot()" value="${signupEntity.altEmail}">
-                        <span id="altEmailvalid"></span>
+                        <small id="altEmailvalid" class="form-text text-danger"></small>
                     </div>
                     <div class="form-group">
                         <label for="altPhoneNo">Alternate Phone Number</label>
                         <input type="text" class="form-control" id="altPhoneNo" name="altPhoneNo" placeholder="Enter alternate phone number" onblur="validData(event)" oninput="altPhoneNoSameOrNot()" value="${signupEntity.altPhhoneNo}">
-                        <span id="altPhonevalid"></span>
+                        <small id="altPhonevalid" class="form-text text-danger"></small>
                     </div>
                     <div class="form-group">
-                                           <label for="location">Location</label>
-                                           <select class="form-control" id="location" name="location" value="${signupEntity.location}">
-                                           <option value="">Select option</option>
-                                           <c:forEach items="${location}" var="loc">
-                                           <option value="${loc}">${loc}</option>
-                                           </c:forEach>
-                                           </select>
-
-                                       </div>
-
+                        <label for="location">Location</label>
+                        <select class="form-control" id="location" name="location">
+                            <option value="">Select option</option>
+                            <c:forEach items="${location}" var="loc">
+                                <option value="${loc}" ${signupEntity.location == loc ? 'selected' : ''}>${loc}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="formFile" class="form-label">Upload Your File</label>
+                        <input type="file" class="form-control" id="formFile" name="thisfile" accept="image/*">
+                    </div>
                     <button type="submit" class="btn btn-primary">Update</button>
                 </form>
             </div>

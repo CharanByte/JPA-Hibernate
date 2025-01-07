@@ -1,3 +1,4 @@
+
 package com.xworkz.project.controller;
 
 import com.xworkz.project.constants.LocationEnum;
@@ -28,8 +29,19 @@ public class UpdateController {
     String filePath;
 
     @PostMapping("/update")
-    public String update(SignupDTO signupDTO,String thisfile, Model model) {
-        System.out.println("onupdate : " + signupDTO + " "+thisfile);
+    public String update(@RequestParam("thisfile") MultipartFile multipartFile ,SignupDTO signupDTO, Model model) throws IOException{
+
+
+        if (multipartFile.isEmpty()) {
+            return "UpdateUserDetails.jsp";
+        } else {
+            System.out.println(multipartFile);
+            System.out.println(multipartFile.getOriginalFilename());
+            byte[] bytes = multipartFile.getBytes();
+            Path path = Paths.get("C:\\img\\" + System.currentTimeMillis() + ".jpg");
+            Files.write(path, bytes);
+            filePath = path.getFileName().toString();
+        }
         model.addAttribute("location", locationEnums);
         int updatedValue = signupService.updateExistingDetails(signupDTO,filePath);
         if (updatedValue == 1) {
@@ -41,18 +53,6 @@ public class UpdateController {
         return "UpdateUserDetails.jsp";
     }
 
-    @PostMapping("/uploadfile")
-    public String updateIng(@RequestParam("thisfile") MultipartFile multipartFile) throws IOException {
-        if (multipartFile.isEmpty()) {
-            return "UpdateUserDetails.jsp";
-        } else {
-            System.out.println(multipartFile);
-            System.out.println(multipartFile.getOriginalFilename());
-            byte[] bytes = multipartFile.getBytes();
-            Path path = Paths.get("C:\\img\\" + System.currentTimeMillis() + ".jpg");
-            Files.write(path, bytes);
-            filePath = path.getFileName().toString();
-        }
-        return "UpdateUserDetails.jsp";
-    }
+
+
 }
