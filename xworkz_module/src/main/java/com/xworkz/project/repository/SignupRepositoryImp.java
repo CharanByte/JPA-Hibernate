@@ -216,7 +216,7 @@ public class SignupRepositoryImp implements SignupRepository {
         try {
             et.begin();
 
-            List<SignupEntity> resultList = em.createNamedQuery("getAll", SignupEntity.class)
+            List<SignupEntity> resultList = em.createNamedQuery("getAllByName", SignupEntity.class)
                     .setParameter("getName", name)
                     .getResultList();
 
@@ -321,6 +321,29 @@ public class SignupRepositoryImp implements SignupRepository {
             em.close();
         }
         return value;
+    }
+
+    @Override
+    public SignupEntity findAllByName(String name) {
+        EntityManager em = entityManagerFactory.createEntityManager();
+        EntityTransaction et = em.getTransaction();
+        SignupEntity signupEntity=null;
+        try {
+            et.begin();
+           List<SignupEntity> list= em.createNamedQuery("getAllByName", SignupEntity.class).setParameter("getName",name).getResultList();
+           if(!list.isEmpty()){
+               signupEntity=list.get(0);
+           }
+           et.commit();
+        } catch (Exception e) {
+            if (et.isActive()) {
+                et.rollback();
+            }
+        } finally {
+            em.close();
+        }
+        System.out.println(signupEntity);
+        return signupEntity;
     }
 
 

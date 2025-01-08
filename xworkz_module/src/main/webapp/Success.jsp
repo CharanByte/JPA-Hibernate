@@ -31,7 +31,13 @@
                     font-weight: bold;
                     color: #343a40;
                 }
+                .profileImage{
+                width:40px;
+                margin-left:30px;
+                border-radius:50%;
+                }
     </style>
+
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark">
@@ -47,12 +53,14 @@
                 <li class="nav-item">
                     <a class="nav-link" href="Signup.jsp">Sign up</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="Signin.jsp">Sign in</a>
+
                 </li>
-                 <li class="nav-item">
-                           <a class="nav-link" href="http://localhost:8086/xworkz_module/signin">Update</a>
-                 </li>
+                                 <li class="nav-item">
+                                           <a class="nav-link" href="signin?name=${name}">Update</a>
+                                 </li>
+                                 <li>
+                                 <img class="profileImage" src="photo/${imageName}"></img>
+                                    <li>
             </ul>
         </div>
     </div>

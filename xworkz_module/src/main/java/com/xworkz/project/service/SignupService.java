@@ -39,4 +39,6 @@ public interface SignupService {
 
 
     void updateCount(String name, int i);
+
+    SignupEntity findAllByName(String name);
 }

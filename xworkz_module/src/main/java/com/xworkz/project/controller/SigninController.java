@@ -3,12 +3,15 @@ package com.xworkz.project.controller;
 import com.xworkz.project.constants.LocationEnum;
 import com.xworkz.project.entity.SignupEntity;
 import com.xworkz.project.service.SignupService;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,7 +23,7 @@ public class SigninController {
 
     @Autowired
     private SignupService signupService;
-    SignupEntity signupEntity;
+
     List<LocationEnum> locationEnums = new ArrayList<>(Arrays.asList(LocationEnum.values()));
 
 
@@ -29,7 +32,9 @@ public class SigninController {
     }
 
     @GetMapping("/signin")
-    public String signin(Model model) {
+    public String signin(Model model,@RequestParam String name ) {
+        System.out.println(name);
+        SignupEntity signupEntity=signupService.findAllByName(name);
         System.out.println("signupEntity :" + signupEntity);
         model.addAttribute("location", locationEnums);
 
@@ -42,7 +47,7 @@ public class SigninController {
 
         boolean matches = signupService.validateSigninDetails(name, password);
         if (matches) {
-            signupEntity = signupService.getAllDetails(name, password);
+            SignupEntity signupEntity= signupService.getAllDetails(name, password);
         }
 
         int value = signupService.getAll(name, password);
@@ -58,6 +63,7 @@ public class SigninController {
         if (matches && count >= 0) {
 
             model.addAttribute("success", "Successfully SignIn as " + name);
+            model.addAttribute("name",name);
             return "Success.jsp";
         } else if (matches && count == -1) {
             return "PasswordReset.jsp";
@@ -85,4 +91,7 @@ public class SigninController {
         }
         return "forgotPassword.jsp";
     }
+
+
+
 }

@@ -251,6 +251,12 @@ public class SignupServiceImp implements SignupService {
     public void updateCount(String name, int i) {
         signupRepository.updateCountBy1(name, 0);
     }
+
+    @Override
+    public SignupEntity findAllByName(String name) {
+        SignupEntity signupEntity=signupRepository.findAllByName(name);
+        return signupEntity;
+    }
 }
 
 

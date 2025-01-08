@@ -35,4 +35,6 @@ public interface SignupRepository {
     List<String> getAllUserName();
 
     int updateLockTime(String name, LocalDateTime localDateTime);
+
+    SignupEntity findAllByName(String name);
 }

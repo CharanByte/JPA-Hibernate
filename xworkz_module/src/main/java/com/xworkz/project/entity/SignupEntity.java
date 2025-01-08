@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 @NamedQuery(name = "updatePassword&CountByName", query = "UPDATE SignupEntity a SET a.password = :setPassword ,a.no=:setNo WHERE a.name = :setName")
 @NamedQuery(name = "getCountValue", query = "select a.no from SignupEntity a WHERE a.name = :setName and a.password=:setPassword")
 @NamedQuery(name = "updateCountValue", query = "UPDATE SignupEntity a SET a.no=:setNo WHERE a.name = :setName")
-@NamedQuery(name = "getAll", query = "select a from SignupEntity a where a.name=:getName")
+@NamedQuery(name = "getAllByName", query = "select a from SignupEntity a where a.name=:getName")
 @NamedQuery(name = "updateExistingDetailsByName", query = "UPDATE SignupEntity a SET a.email=:setEmail,a.phoneNo=:setPhoneNo,a.altEmail=:setAltEmail,a.altPhhoneNo=:setaltPhoneNo,a.location=:setLocation,a.updatedBy=:setupdatedBy,a.updatedDate=:setupdatedDate,a.imageProfile=:setimageProfile WHERE a.name=:setName")
 @NamedQuery(name = "getAllUserName", query = "select a.name from SignupEntity a")
 @NamedQuery(name = "updateLockTime", query = "UPDATE SignupEntity a SET a.lockedtime=:setTime where a.name=:setName")
