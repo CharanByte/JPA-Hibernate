@@ -51,9 +51,7 @@ public class SignupServiceImp implements SignupService {
         if (signupDTO != null && signupDTO.getEmail() != null) {
             SignupEntity signupEntity = new SignupEntity();
             generatedPassword = passwordGenerate();
-            // String encodedPassword = passwordEncoder.encode(generatedPassword);
-
-            // System.out.println("encodedPassword : " + encodedPassword);
+           
             signupEntity.setName(signupDTO.getName());
             signupEntity.setEmail(signupDTO.getEmail());
             signupEntity.setPassword(generatedPassword);
@@ -146,7 +144,11 @@ public class SignupServiceImp implements SignupService {
         SignupEntity signupEntity = signupRepository.getAll(name, password);
         System.out.println(signupEntity.toString());
         if (signupEntity != null) {
-            if (name.equals(signupEntity.getName()) && password.equals(signupEntity.getPassword()) && signupEntity.getNo() >= 0) {
+            if (name.equals(signupEntity.getName()) && password.equals(signupEntity.getPassword()) && signupEntity.getNo() >= 0 && signupEntity.getNo() <= 3) {
+                System.out.println("successfully signined");
+                signupRepository.updateCountBy1(name, 0);
+                return 1;
+            } else if (name.equals(signupEntity.getName()) && password.equals(signupEntity.getPassword()) && signupEntity.getNo() >= 3) {
                 LocalDateTime a = signupEntity.getLockedtime();
                 LocalDateTime b = a.plusMinutes(2);
                 LocalDateTime time = LocalDateTime.now();
@@ -254,8 +256,8 @@ public class SignupServiceImp implements SignupService {
 
     @Override
     public SignupEntity findAllByName(String name) {
-        SignupEntity signupEntity=signupRepository.findAllByName(name);
-        return signupEntity;
+        return signupRepository.findAllByName(name);
+
     }
 }
 

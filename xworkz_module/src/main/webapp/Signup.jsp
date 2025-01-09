@@ -10,19 +10,61 @@
     <!-- Bootstrap CSS CDN -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body {
-            background-color: #e9ecef;
+       * {
+                  margin: 0;
+                  padding: 0;
+                  box-sizing: border-box;
+                  font-family: "Open Sans", sans-serif;
+              }
 
-        }
-         .navbar {
-                    background-color: #343a40;
+              body {
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  flex-direction: column;
+                  min-height: 100vh;
+                  width: 100%;
+                  padding: 0;
+                  background: url("https://img.freepik.com/free-photo/sunlight-shining-single-mountain-top-sunset-with-dark-cloudy-sky_181624-377.jpg?ga=GA1.1.11952807.1720176591&semt=ais_hybrid") no-repeat center center/cover;
+                  background-attachment: fixed; /* Keeps the background fixed */
+              }
+           .navbar {
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    padding: 20px 40px;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    z-index: 1000;
+                    backdrop-filter: blur(10px);
+                    -webkit-backdrop-filter: blur(10px);
+                    color: #fff;
                 }
-                .navbar-brand {
-                    color: #ffffff !important;
+
+                .navbar-brand img {
+                    height: 45px;
                 }
-                .navbar-brand:hover {
-                    color: #007bff !important;
+
+                .navbar-nav {
+                    display: flex;
+                    gap: 15px;
                 }
+
+                .nav-link {
+                    color: #fff;
+                    text-decoration: none;
+                    font-size: 16px;
+                    font-weight: 600;
+                    transition: color 0.3s;
+                }
+
+                .nav-link:hover {
+                    color: #FFA600;
+                    text-decoration: none;
+                }
+
                 .main-section {
                     text-align: center;
                     padding: 100px 20px;
@@ -32,15 +74,11 @@
                     font-weight: bold;
                     color: #343a40;
                 }
-        .form-container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+
         .form-container h2 {
             margin-bottom: 20px;
             text-align: center;
+            color:#fff;
         }
         .form-container .btn {
             display: block;
@@ -50,32 +88,43 @@
       .header-spacing {
                  margin-bottom: 30px;
              }
+              .header-spacing {
+
+                     margin-top: 100px;
+                 }
+                 .form-container{
+                 width: 600px;
+                             border-radius: 8px;
+                             padding: 30px;
+                             text-align: left;
+                             border: 1px solid rgba(255, 255, 255, 0.5);
+                             backdrop-filter: blur(8px);
+                             -webkit-backdrop-filter: blur(8px);
+                             background: rgba(255, 255, 255, 0.1); /* Glass effect */
+                 }
+
+             .form-group {
+
+                        margin: 15px 0;
+                        color:#fff;
+                    }
+
+
+
     </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark header-spacing">
-    <div class="container">
-        <a class="navbar-brand" href="#">
-            <img src="https://x-workz.in/static/media/Logo.cf195593dc1b3f921369.png" alt="Logo" class="logo" height="50">
-        </a>
-        <div class="collapse navbar-collapse">
-            <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="index.jsp">Home</a>
-               </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="Signup.jsp">Sign up</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="Signin.jsp">Sign in</a>
-                </li>
-
-            </ul>
-        </div>
+<nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="#">
+        <img src="https://x-workz.in/static/media/Logo.cf195593dc1b3f921369.png" alt="X-workz Logo">
+    </a>
+    <div class="navbar-nav">
+        <a class="nav-link" href="index.jsp">Home</a>
+        <a class="nav-link" href="Signin.jsp">Sign in</a>
     </div>
 </nav>
 
-<div class="container">
+<div class="container header-spacing">
     <div class="row justify-content-center">
         <div class="col-md-6">
  <c:forEach items = "${error}" var = "i">
@@ -131,7 +180,7 @@ var placeName=document.getElementById("nameid");
    var placeValue=placeName.value;
 if(placeValue!=""){
       var xhttp=new XMLHttpRequest();
-        xhttp.open("GET","http://localhost:8082/xworkz_module/placeName/" + placeValue,true);
+        xhttp.open("GET","http://localhost:8086/xworkz_module/placeName/" + placeValue,true);
         xhttp.send();
 
         xhttp.onload = function() {

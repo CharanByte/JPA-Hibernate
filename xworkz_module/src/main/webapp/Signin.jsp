@@ -50,10 +50,7 @@ margin-left:70%;
              <a class="nav-link" href="index.jsp">Home</a>
              </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost:8083/xworkz_module/signin">Sign up</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="Signin.jsp">Sign in</a>
+                    <a class="nav-link" href="Signup.jsp">Sign up</a>
                 </li>
 
             </ul>
@@ -96,7 +93,7 @@ var filedName=document.getElementById("userName");
    var fieldValue=filedName.value;
 
       var xhttp=new XMLHttpRequest();
-        xhttp.open("GET","http://localhost:8081/xworkz_module/filedName/" + fieldValue,true);
+        xhttp.open("GET","http://localhost:8086/xworkz_module/filedName/" + fieldValue,true);
         xhttp.send();
 
         xhttp.onload = function() {

@@ -32,7 +32,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 10px 20px;
+            padding: 20px 20px;
             position: absolute;
             top: 0;
             left: 0;
@@ -47,6 +47,7 @@
         .navbar-nav {
             display: flex;
             gap: 15px;
+
         }
 
         .nav-link {
@@ -58,8 +59,8 @@
         }
 
         .nav-link:hover {
-            color: #f05454; /* Highlight color on hover */
-            text-decoration: underline;
+            color: #FFA600; /* Highlight color on hover */
+            text-decoration: none;
         }
 
         .wrapper {
@@ -155,7 +156,7 @@
         </a>
         <div class="navbar-nav">
             <a class="nav-link" href="index.jsp">Home</a>
-            <a class="nav-link" href="http://localhost:8083/xworkz_module/Signup">Sign up</a>
+            <a class="nav-link" href="Signup">Sign up</a>
             <a class="nav-link" href="Signin.jsp">Sign in</a>
         </div>
     </div>

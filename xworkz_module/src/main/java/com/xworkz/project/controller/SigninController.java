@@ -3,7 +3,6 @@ package com.xworkz.project.controller;
 import com.xworkz.project.constants.LocationEnum;
 import com.xworkz.project.entity.SignupEntity;
 import com.xworkz.project.service.SignupService;
-import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,9 +31,9 @@ public class SigninController {
     }
 
     @GetMapping("/signin")
-    public String signin(Model model,@RequestParam String name ) {
+    public String signin(Model model, @RequestParam String name) {
         System.out.println(name);
-        SignupEntity signupEntity=signupService.findAllByName(name);
+        SignupEntity signupEntity = signupService.findAllByName(name);
         System.out.println("signupEntity :" + signupEntity);
         model.addAttribute("location", locationEnums);
 
@@ -47,10 +46,11 @@ public class SigninController {
 
         boolean matches = signupService.validateSigninDetails(name, password);
         if (matches) {
-            SignupEntity signupEntity= signupService.getAllDetails(name, password);
+            signupService.getAllDetails(name, password);
         }
 
         int value = signupService.getAll(name, password);
+        System.out.println(value);
         if (value == 2) {
             model.addAttribute("failure", "incorrect password");
             return "Signin.jsp";
@@ -63,7 +63,7 @@ public class SigninController {
         if (matches && count >= 0) {
 
             model.addAttribute("success", "Successfully SignIn as " + name);
-            model.addAttribute("name",name);
+            model.addAttribute("name", name);
             return "Success.jsp";
         } else if (matches && count == -1) {
             return "PasswordReset.jsp";
@@ -91,7 +91,6 @@ public class SigninController {
         }
         return "forgotPassword.jsp";
     }
-
 
 
 }

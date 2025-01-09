@@ -24,24 +24,25 @@ public class SignupController {
 
     @Autowired
     private SignupService signupService;
-    List<LocationEnum> locationEnums=new ArrayList<>(Arrays.asList(LocationEnum.values()));
+    List<LocationEnum> locationEnums = new ArrayList<>(Arrays.asList(LocationEnum.values()));
+
     SignupController() {
         System.out.println("running SignupController");
     }
 
-    @GetMapping ("/Signup")
-    public String SignUp(Model model){
+    @GetMapping("/Signup")
+    public String SignUp(Model model) {
 
-        model.addAttribute("location",locationEnums);
+        model.addAttribute("location", locationEnums);
 
         return "Signup.jsp";
-       }
+    }
 
     @PostMapping("/signup")
     public String signup(Model model, @Valid SignupDTO signupDTO, BindingResult bindingResult) {
 
         System.out.println(signupDTO);
-        model.addAttribute("location",locationEnums);
+        model.addAttribute("location", locationEnums);
         if (bindingResult.hasErrors()) {
             System.out.println("valididation : " + bindingResult.getAllErrors());
             model.addAttribute("error", bindingResult.getAllErrors());
@@ -59,7 +60,6 @@ public class SignupController {
         }
         return "Signup.jsp";
     }
-
 
 
 }

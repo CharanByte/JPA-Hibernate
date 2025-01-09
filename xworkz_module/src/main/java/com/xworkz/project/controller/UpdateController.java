@@ -4,20 +4,16 @@ package com.xworkz.project.controller;
 import com.xworkz.project.constants.ImagePath;
 import com.xworkz.project.constants.LocationEnum;
 import com.xworkz.project.dto.SignupDTO;
-import com.xworkz.project.entity.SignupEntity;
 import com.xworkz.project.service.SignupService;
-import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -35,7 +31,7 @@ public class UpdateController {
     String filePath;
 
     @PostMapping("/update")
-    public String update(@RequestParam("thisfile") MultipartFile multipartFile ,SignupDTO signupDTO, Model model) throws IOException{
+    public String update(@RequestParam("thisfile") MultipartFile multipartFile, SignupDTO signupDTO, Model model) throws IOException {
         System.out.println(signupDTO);
 
         if (multipartFile.isEmpty()) {
@@ -49,17 +45,16 @@ public class UpdateController {
             filePath = path.getFileName().toString();
         }
         model.addAttribute("location", locationEnums);
-        int updatedValue = signupService.updateExistingDetails(signupDTO,filePath);
+        int updatedValue = signupService.updateExistingDetails(signupDTO, filePath);
         if (updatedValue == 1) {
             System.out.println(updatedValue);
 
             model.addAttribute("updateSuccess", signupDTO.getName() + " Your Registration details Updated Successfully");
-           model.addAttribute("imageName",filePath);
+            model.addAttribute("imageName", filePath);
             return "Success.jsp";
         }
         return "UpdateUserDetails.jsp";
     }
-
 
 
 }

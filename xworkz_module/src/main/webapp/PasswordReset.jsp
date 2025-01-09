@@ -49,7 +49,7 @@
                     <a class="nav-link" href="Signin.jsp">Sign in</a>
                 </li>
                  <li class="nav-item">
-                                           <a class="nav-link" href="UpdateUserDetails.jsp">Update</a>
+                                           <a class="nav-link" href="signin?name=${name}">Update</a>
                                  </li>
             </ul>
         </div>

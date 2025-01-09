@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Collections;
 import java.util.List;
 
 @Repository
@@ -232,7 +231,6 @@ public class SignupRepositoryImp implements SignupRepository {
         } finally {
             em.close();
         }
-
         return signupEntity;
     }
 
@@ -269,7 +267,7 @@ public class SignupRepositoryImp implements SignupRepository {
         int updatedValue = 0;
         try {
             et.begin();
-            updatedValue = em.createNamedQuery("updateExistingDetailsByName").setParameter("setEmail", signupDTO.getEmail()).setParameter("setPhoneNo", signupDTO.getPhoneNo()).setParameter("setAltEmail", signupDTO.getAltEmail()).setParameter("setaltPhoneNo", signupDTO.getAltPhhoneNo()).setParameter("setLocation", signupDTO.getLocation()).setParameter("setName", signupDTO.getName()).setParameter("setupdatedBy", signupDTO.getName()).setParameter("setupdatedDate", signupDTO.getUpdatedDate()).setParameter("setimageProfile",signupDTO.getImageProfile()).executeUpdate();
+            updatedValue = em.createNamedQuery("updateExistingDetailsByName").setParameter("setEmail", signupDTO.getEmail()).setParameter("setPhoneNo", signupDTO.getPhoneNo()).setParameter("setAltEmail", signupDTO.getAltEmail()).setParameter("setaltPhoneNo", signupDTO.getAltPhhoneNo()).setParameter("setLocation", signupDTO.getLocation()).setParameter("setName", signupDTO.getName()).setParameter("setupdatedBy", signupDTO.getName()).setParameter("setupdatedDate", signupDTO.getUpdatedDate()).setParameter("setimageProfile", signupDTO.getImageProfile()).executeUpdate();
 
             et.commit();
         } catch (Exception e) {
@@ -287,7 +285,7 @@ public class SignupRepositoryImp implements SignupRepository {
     public List<String> getAllUserName() {
         EntityManager em = entityManagerFactory.createEntityManager();
         EntityTransaction et = em.getTransaction();
-        List<String> userNames= em.createNamedQuery("getAllUserName").getResultList();
+        List<String> userNames = em.createNamedQuery("getAllUserName").getResultList();
         try {
             et.begin();
 
@@ -307,11 +305,11 @@ public class SignupRepositoryImp implements SignupRepository {
         EntityManager em = entityManagerFactory.createEntityManager();
         EntityTransaction et = em.getTransaction();
 
-        int value=0;
+        int value = 0;
         try {
             et.begin();
-             value=em.createNamedQuery("updateLockTime").setParameter("setTime",localDateTime).setParameter("setName",name).executeUpdate();
-            System.out.println("updateLockTime : "+value);
+            value = em.createNamedQuery("updateLockTime").setParameter("setTime", localDateTime).setParameter("setName", name).executeUpdate();
+            System.out.println("updateLockTime : " + value);
             et.commit();
         } catch (Exception e) {
             if (et.isActive()) {
@@ -327,14 +325,14 @@ public class SignupRepositoryImp implements SignupRepository {
     public SignupEntity findAllByName(String name) {
         EntityManager em = entityManagerFactory.createEntityManager();
         EntityTransaction et = em.getTransaction();
-        SignupEntity signupEntity=null;
+        SignupEntity signupEntity = null;
         try {
             et.begin();
-           List<SignupEntity> list= em.createNamedQuery("getAllByName", SignupEntity.class).setParameter("getName",name).getResultList();
-           if(!list.isEmpty()){
-               signupEntity=list.get(0);
-           }
-           et.commit();
+            List<SignupEntity> list = em.createNamedQuery("getAllByName", SignupEntity.class).setParameter("getName", name).getResultList();
+            if (!list.isEmpty()) {
+                signupEntity = list.get(0);
+            }
+            et.commit();
         } catch (Exception e) {
             if (et.isActive()) {
                 et.rollback();
